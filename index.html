@@ -473,12 +473,11 @@
                 </thead>
                 <tbody>
                     <tr><td>Toggle altitude hold</td><td>E</td><td>Exothrust must be active</td></tr>
-                    <tr><td>Deploy forcefield</td><td>Left Click(Belt slot 1)</td><td>Last 30 seconds</td></tr>
+                    <tr><td>Deploy forcefield</td><td>Left Click(Belt slot 2)</td><td>Last 30 seconds</td></tr>
                 </tbody>
             </table>
 
             <h3>Exothrust Flight Controls</h3>
-            <p>Your mouse aim controls your flight direction — the suit moves in the direction you are looking.</p>
             <table>
                 <thead>
                     <tr><th>Action</th><th>Input</th></tr>
@@ -491,7 +490,6 @@
                     <tr><td>Ascend</td><td>Space</td></tr>
                     <tr><td>Descend</td><td>Ctrl</td></tr>
                     <tr><td>Boost speed</td><td>Shift (hold)</td></tr>
-                    <tr><td>Pause fuel consumption</td><td>Hold Ctrl while stationary</td></tr>
                 </tbody>
             </table>
 
@@ -727,6 +725,15 @@
 
         <section id="config-notes">
             <h2>Section 14 — Configuration Notes</h2>
+            <p><strong>Quick overview:</strong> Most gameplay behavior is configurable from the plugin config without code edits. You can tune balance, UI behavior, automation, and progression for your server style.</p>
+            <ul>
+                <li><strong>Tier balancing:</strong> armor values, battery/fuel capacities, drain rates, speed multipliers, flight/swim boosts, and feature unlocks per tier.</li>
+                <li><strong>Drone systems:</strong> max drones per tier, chase/hover ranges, charging behavior, battery thresholds, and turret enable/scaling.</li>
+                <li><strong>Combat & survivability:</strong> forcefield settings, fire weapon behavior, healing automation, damage effects, and fall-damage handling.</li>
+                <li><strong>HUD/UI:</strong> radar, console, and bar behavior/positions; visibility rules; update cadence and status presentation.</li>
+                <li><strong>Resource economy:</strong> item costs, refill behavior, charging rates, and conversion/consumption pacing.</li>
+                <li><strong>Admin controls:</strong> permissions, bypass rules, diagnostics/debug toggles, and command access boundaries.</li>
+            </ul>
             <h3>Skin Ownership (<code>UseSkinOwnership</code>)</h3>
             <p>Controls how custom skins are applied to suit items (armor pieces, belt tools, etc.):</p>
             <ul>
@@ -792,6 +799,3 @@
 
 </body>
 </html>
-
-
-
