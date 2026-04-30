@@ -34,7 +34,7 @@
             padding-bottom: 50px;
         }
 
-        /* ── STICKY NAV ── */
+        /* â”€â”€ STICKY NAV â”€â”€ */
         #sticky-nav {
             position: sticky;
             top: 0;
@@ -305,7 +305,7 @@
         <a href="#checklist">QA Checklist</a>
         <a href="#technical">Technical</a>
         <a href="#config-notes">Config</a>
-        <input id="search-box" type="search" placeholder="Search docs…" autocomplete="off">
+        <input id="search-box" type="search" placeholder="Search docsâ€¦" autocomplete="off">
     </nav>
 
     <header>
@@ -323,11 +323,11 @@
         </div>
 
         <section id="overview">
-            <h2>Section 1 — Overview</h2>
+            <h2>Section 1 â€” Overview</h2>
             <p>ScrapExo is a tiered exosuit system for Rust. Players activate a powered exoskeleton that replaces their standard armor and provides enhanced combat, mobility, survivability, and drone support. The suit is powered by a battery and fuel system. All features scale across 5 configurable tiers.</p>
             <h3>Core Impacts:</h3>
             <ul>
-                <li>Equips a full multi-layer suit (NVG, diving tank, and other attire) that provides passive protection — all damage is absorbed by the suit's armor bar before your health is touched</li>
+                <li>Equips a full multi-layer suit (NVG, diving tank, and other attire) that provides passive protection â€” all damage is absorbed by the suit's armor bar before your health is touched</li>
                 <li>Provides enhanced movement speed on land, in water, and optionally in flight (Exothrust)</li>
                 <li>Grants automated medical support (auto-syringe, auto-bandage)</li>
                 <li>Provides climate control (heater/AC) to prevent cold/heat damage</li>
@@ -339,20 +339,20 @@
             <h3>What This Replaces</h3>
             <p>ScrapExo replaces or supersedes the following vanilla Rust mechanics:</p>
             <ul>
-                <li><strong>Armor system</strong> — multi-layer suit (NVG, diving tank, and various wear items) stacked in clothing slots, providing passive resistance to damage and environmental hazards</li>
-                <li><strong>Healing items</strong> — auto-syringe and auto-bandage trigger automatically</li>
-                <li><strong>Temperature survival</strong> — built-in heater and AC manage climate passively</li>
-                <li><strong>Mobility enhancements</strong> — speed boost, flight, and swim improvements replace vanilla movement</li>
-                <li><strong>Combat support</strong> — autonomous drones replace the need for manual combat tools</li>
+                <li><strong>Armor system</strong> â€” multi-layer suit (NVG, diving tank, and various wear items) stacked in clothing slots, providing passive resistance to damage and environmental hazards</li>
+                <li><strong>Healing items</strong> â€” auto-syringe and auto-bandage trigger automatically</li>
+                <li><strong>Temperature survival</strong> â€” built-in heater and AC manage climate passively</li>
+                <li><strong>Mobility enhancements</strong> â€” speed boost, flight, and swim improvements replace vanilla movement</li>
+                <li><strong>Combat support</strong> â€” autonomous drones replace the need for manual combat tools</li>
             </ul>
             <p>ScrapExo functions as a full gameplay system layer rather than a standalone utility plugin, integrating combat, mobility, automation, and UI into a unified experience.</p>
         </section>
 
         <section id="quickstart">
-            <h2>🚀 Quick Start</h2>
+            <h2>ðŸš€ Quick Start</h2>
             <ol>
                 <li>Run <code>/exo1</code> (or <code>/exo5</code> for full feature testing)</li>
-                <li>Wait for the startup sequence (~13 seconds) — movement is reduced to a slow crawl while the suit powers up</li>
+                <li>Wait for the startup sequence (~13 seconds) â€” movement is reduced to a slow crawl while the suit powers up</li>
                 <li>Press <strong>Ctrl + Space</strong> to enable Exothrust flight</li>
                 <li>Use <strong>W / A / S / D</strong> to fly, <strong>Space</strong> to ascend, <strong>Ctrl</strong> to descend</li>
                 <li>Press <strong>E</strong> to toggle altitude hold while flying</li>
@@ -362,7 +362,7 @@
         </section>
 
         <section id="commands">
-            <h2>Section 2 — Commands</h2>
+            <h2>Section 2 â€” Commands</h2>
             
             <h3>Chat Commands (player)</h3>
             <table>
@@ -386,7 +386,7 @@
                     <tr><td><code>/exoitem4</code></td><td>scrapexo.item.tier4</td><td>Give yourself a Tier 4 activation item</td></tr>
                     <tr><td><code>/exoitem5</code></td><td>scrapexo.item.tier5</td><td>Give yourself a Tier 5 activation item</td></tr>
                     <tr><td><code>/exorefill</code></td><td>scrapexo.refill</td><td>Instantly refill active exosuit battery and fuel to maximum</td></tr>
-                    <tr><td><code>/exodrone</code></td><td>none (suit required, Tier 3+)</td><td>Opens the drone management panel. Available only to players wearing a Tier 3 or higher exosuit. From here you can select individual drones (D1, D2, D3...) or all at once, choose an authorized base or saved waypoint as a target, deploy selected drones, recall a specific drone, recall all drones, access drone storage, spawn drones (requires elevated permission), or despawn all active drones. Waypoints appear on both the Enhanced HUD compass and inside the drone panel. <em>(Early iteration — functional, UI polish ongoing.)</em></td></tr>
+                    <tr><td><code>/exodrone</code></td><td>none (suit required, Tier 3+)</td><td>Opens the drone management panel. Available only to players wearing a Tier 3 or higher exosuit. From here you can command drones individually (D1/D2/D3...) or as a group (ALL), choose a base or waypoint target, deploy selected drones, recall one drone, recall all to hover, open drone storage, spawn drones (requires elevated permission), or despawn all active drones. Waypoints appear on both the Enhanced HUD compass and inside the drone panel. <strong>Command lock:</strong> drone panel actions are blocked while the exosuit shutdown/deactivation sequence is active.</td></tr>
                     <tr><td><code>/wpmark [name]</code></td><td>none (suit + HUD)</td><td>Mark your aim target as a named waypoint. Waypoints appear directly on the Enhanced HUD compass and update in real time as you move. Waypoints are saved permanently and persist across suit deactivations, disconnects, and server restarts. They are only removed by <code>/wpdel</code> or <code>/wpclear</code>.</td></tr>
                     <tr><td><code>/wplist</code></td><td>none (suit + HUD)</td><td>List all saved waypoints</td></tr>
                     <tr><td><code>/wpdel [name]</code></td><td>none (suit + HUD)</td><td>Delete a specific waypoint by name</td></tr>
@@ -440,7 +440,7 @@
         </section>
 
         <section id="permissions">
-            <h2>Section 3 — Permissions</h2>
+            <h2>Section 3 â€” Permissions</h2>
             <table>
                 <thead>
                     <tr>
@@ -454,9 +454,9 @@
                     <tr><td><code>scrapexo.refill</code></td><td>Allows /exorefill instant refill</td></tr>
                     <tr><td><code>scrapexo.bypass.cost</code></td><td>Skip scrap cost on suit activation</td></tr>
                     <tr><td><code>scrapexo.bypass.cooldown</code></td><td>Skip activation cooldown</td></tr>
-                    <tr><td><code>scrapexo.bypass.battery</code></td><td>Unlimited battery — all battery-gated features available</td></tr>
+                    <tr><td><code>scrapexo.bypass.battery</code></td><td>Unlimited battery â€” all battery-gated features available</td></tr>
                     <tr><td><code>scrapexo.bypass.fuel</code></td><td>Unlimited exothrust fuel</td></tr>
-                    <tr><td><code>scrapexo.bypass.drone</code></td><td>Allows the Spawn button in the drone panel to work freely — no drone item required from inventory</td></tr>
+                    <tr><td><code>scrapexo.bypass.drone</code></td><td>Allows the Spawn button in the drone panel to work freely â€” no drone item required from inventory</td></tr>
                     <tr><td><code>scrapexo.moveui</code></td><td>Allows UI repositioning commands</td></tr>
                     <tr><td><code>scrapexo.admin</code></td><td>Access to exo.debug and server-side refill</td></tr>
                 </tbody>
@@ -464,7 +464,7 @@
         </section>
 
         <section id="controls">
-            <h2>Section 4 — Controls</h2>
+            <h2>Section 4 â€” Controls</h2>
             
             <h3>General Exosuit Controls</h3>
             <table>
@@ -478,7 +478,7 @@
             </table>
 
             <h3>Exothrust Flight Controls</h3>
-            <p>Your mouse aim controls your flight direction — the suit moves in the direction you are looking.</p>
+            <p>Your mouse aim controls your flight direction â€” the suit moves in the direction you are looking.</p>
             <table>
                 <thead>
                     <tr><th>Action</th><th>Input</th></tr>
@@ -508,20 +508,20 @@
         </section>
 
         <section id="core-systems">
-            <h2>Section 5 — Core Systems</h2>
+            <h2>Section 5 â€” Core Systems</h2>
             
             <h3>5.1 Exosuit Activation System</h3>
             <p>Activation is a two-step confirmation process or instant via activation item:</p>
             <ul>
-                <li><strong>Confirmation:</strong> Run <code>/exo#</code> twice — the first press shows the resource cost, the second confirms and activates.</li>
+                <li><strong>Confirmation:</strong> Run <code>/exo#</code> twice â€” the first press shows the resource cost, the second confirms and activates.</li>
                 <li><strong>Auto-Equip:</strong> Suit equips custom armor, saves original wear/belt, and locks slots.</li>
-                <li><strong>Startup:</strong> 13.5-second boot sequence with diagnostic messages. Speed boosts are removed during this window — you can still move but only at a slow unassisted pace.</li>
+                <li><strong>Startup:</strong> 13.5-second boot sequence with diagnostic messages. Speed boosts are removed during this window â€” you can still move but only at a slow unassisted pace.</li>
                 <li><strong>Alternative:</strong> Place a matching-skin metal.shield in the backpack slot.</li>
                 <li><strong>Deactivation:</strong> Run <code>/exo#</code> again for a 10-second shutdown sequence.</li>
             </ul>
 
             <h3>5.2 Armor System</h3>
-            <p>The suit is made up of multiple layered wear items (NVG, diving tank, and other attire) all stacked into the clothing slots at once. Together they provide passive protection against damage and environmental hazards. The <strong>Armor Bar</strong> on your HUD represents the combined health of these layers — when it hits zero, the suit is destroyed. Your personal health is not affected as long as armor remains.</p>
+            <p>The suit is made up of multiple layered wear items (NVG, diving tank, and other attire) all stacked into the clothing slots at once. Together they provide passive protection against damage and environmental hazards. The <strong>Armor Bar</strong> on your HUD represents the combined health of these layers â€” when it hits zero, the suit is destroyed. Your personal health is not affected as long as armor remains.</p>
             <ul>
                 <li>All damage is absorbed by the armor bar before touching your health.</li>
                 <li>Hit effects play on every strike. When the armor bar fully depletes, a debris burst effect always plays.</li>
@@ -531,8 +531,8 @@
 
             <h3>5.3 Climate Control System</h3>
             <ul>
-                <li><strong>Heater:</strong> Activates &lt; 15°C, targets 32°C.</li>
-                <li><strong>AC:</strong> Activates &gt; 38°C, targets 28°C.</li>
+                <li><strong>Heater:</strong> Activates &lt; 15Â°C, targets 32Â°C.</li>
+                <li><strong>AC:</strong> Activates &gt; 38Â°C, targets 28Â°C.</li>
                 <li><strong>Drains:</strong> Battery.</li>
                 <li><strong>Cycle:</strong> 30-second minimum prevent rapid switching.</li>
             </ul>
@@ -549,7 +549,7 @@
             </ul>
 
             <h3>5.6 Night Vision System</h3>
-            <p>Tiers 2–5 F to enable night vision goggles when the suit activates. They are removed when the suit shuts down.</p>
+            <p>Tiers 2â€“5 F to enable night vision goggles when the suit activates. They are removed when the suit shuts down.</p>
 
             <h3>5.7 Fire Weapon System</h3>
             <p>A custom fire longsword is placed in your belt. It shoots heat projectiles that deal fire damage and can damage structures. Each shot consumes fuel.</p>
@@ -559,7 +559,7 @@
         </section>
 
         <section id="progression">
-            <h2>Section 6 — Progression / Tiers</h2>
+            <h2>Section 6 â€” Progression / Tiers</h2>
             <table>
                 <thead>
                     <tr>
@@ -590,7 +590,7 @@
         </section>
 
         <section id="drones">
-            <h2>Section 7 — Drone System (Detailed)</h2>
+            <h2>Section 7 â€” Drone System (Detailed)</h2>
             <h3>7.1 Drone Behavior States</h3>
             <p>At any given time, each drone is in one of the following modes:</p>
             <ul>
@@ -598,49 +598,50 @@
                 <li><strong>Going to base:</strong> Heading to your selected base to recharge through the hatch or await orders.</li>
                 <li><strong>Holding at waypoint:</strong> Hovering in place above a saved waypoint until recalled.</li>
                 <li><strong>Returning to player:</strong> Flying back to you after a recall command.</li>
-                <li><strong>Landing / Ascending:</strong> Performing the hatch docking sequence — centering above the door and dropping in, or climbing back out after charging.</li>
+                <li><strong>Landing / Ascending:</strong> Performing the hatch docking sequence â€” centering above the door and dropping in, or climbing back out after charging.</li>
                 <li><strong>Charging:</strong> Sitting on the DiscoFloor inside your base, refilling its battery.</li>
                 <li><strong>Chasing a target:</strong> Actively pursuing and attacking an enemy.</li>
-                <li><strong>Sync lost:</strong> Owner has disconnected — drone wanders until the player reconnects.</li>
+                <li><strong>Sync lost:</strong> Owner has disconnected â€” drone wanders until the player reconnects.</li>
             </ul>
             <h3>7.2 Drone Management Panel</h3>
-            <p>Opened with <code>/exodrone</code>. Requires Tier 3+ exosuit. The panel has two columns: your authorized bases on the left and your saved waypoints on the right.</p>
+            <p>Opened with <code>/exodrone</code>. Requires Tier 3+ exosuit. The panel has two columns: your authorized bases on the left and your saved waypoints on the right. During suit shutdown/deactivation, drone commands are locked until shutdown completes.</p>
             <h4>Drone Selector</h4>
             <p>A row of buttons appears at the top of the panel showing each active drone (D1, D2, D3...) plus an ALL button. Click a D# to target that specific drone for your next action. Click ALL to apply actions to every drone at once. Selecting a drone that is unavailable or destroyed shows a warning and keeps the current selection unchanged. A chat confirmation (<code>[DRONE] Selected: D1</code>) is sent each time you make a selection so you can verify what the system registered. Action buttons (Deploy, Recall, Recall All) have a short cooldown to prevent accidental double-firing from rapid clicks.</p>
             <h4>Actions</h4>
             <ul>
-                <li><strong>Deploy to Target:</strong> Sends the selected drone(s) to whichever base or waypoint is highlighted yellow. Drones actively charging on their pad are protected and cannot be redirected — drones still in transit can be overridden immediately.</li>
-                <li><strong>Recall:</strong> Brings a specific selected drone (D1, D2...) back to you. Requires a D# to be selected — not available when ALL is active.</li>
+                <li><strong>Deploy to Target:</strong> Sends the selected drone(s) to whichever base or waypoint is highlighted yellow. Drones actively charging on their pad are protected and cannot be redirected â€” drones still in transit can be overridden immediately.</li>
+                <li><strong>Recall:</strong> Brings a specific selected drone (D1, D2...) back to you. Requires a D# to be selected â€” not available when ALL is active.</li>
                 <li><strong>Recall All:</strong> Brings every drone back to orbit around you and clears all base/waypoint assignments.</li>
                 <li><strong>Storage:</strong> Opens the first available drone's cargo inventory.</li>
-                <li><strong>Spawn:</strong> Spawns a new drone. Without <code>scrapexo.bypass.drone</code>, a drone item is consumed from your inventory. With the bypass permission, drones are free to spawn. Shows a warning if no item is available or permission is missing. Alternatively, dropping a drone item from your inventory while the suit is active will also spawn it directly. If the chassis has a depleted battery, you must be standing within 3m of a powered charging station — the drone will spawn directly onto the pad and begin charging at the normal rate, activating automatically once full.</li>
-                <li><strong>Despawn:</strong> Recalls all active drones. Each drone flies back to your position, lands nearby, then returns its chassis to your inventory. Players with <code>scrapexo.bypass.drone</code> have their drones simply deactivate on landing — no item is returned since none was spent.</li>
+                <li><strong>Spawn:</strong> Spawns a new drone. Without <code>scrapexo.bypass.drone</code>, a drone item is consumed from your inventory. With the bypass permission, drones are free to spawn. Shows a warning if no item is available or permission is missing. Alternatively, dropping a drone item from your inventory while the suit is active will also spawn it directly. If the chassis has a depleted battery, you must be standing within 3m of a powered charging station â€” the drone will spawn directly onto the pad and begin charging at the normal rate, activating automatically once full. <strong>Safety lock:</strong> spawn from panel and drop-to-activate are both blocked while suit shutdown/deactivation is active.</li>
+                <li><strong>Despawn:</strong> Recalls all active drones. Each drone flies back to your position, lands nearby, then returns its chassis to your inventory. Players with <code>scrapexo.bypass.drone</code> have their drones simply deactivate on landing â€” no item is returned since none was spent.</li>
             </ul>
             <h4>Waypoints in the Panel</h4>
-            <p>Waypoints saved with <code>/wpmark</code> appear in the right column of the drone panel. Selecting one and clicking <strong>Deploy to Target</strong> sends the selected drone(s) there. Drones circle above the waypoint until recalled — they do not automatically return on their own unless battery depletes.</p>
+            <p>Waypoints saved with <code>/wpmark</code> appear in the right column of the drone panel. Selecting one and clicking <strong>Deploy to Target</strong> sends the selected drone(s) there. Drones circle above the waypoint until recalled â€” they do not automatically return on their own unless battery depletes.</p>
             <h3>7.3 Charging Behavior (Hatch Docking)</h3>
             <ol>
-                <li>When a drone's battery runs low, it returns to your registered base within 350m to recharge.</li>
+                <li>When a drone's battery is low (&lt;30), it diverts to a charging station if one is in range.</li>
                 <li>It navigates to the floor-frame hatch above the charging area, aligns itself over the opening, and opens the hatch.</li>
                 <li>The drone descends through the hatch into the base interior, moves to an available DiscoFloor charging pad, positions itself correctly, and begins charging.</li>
                 <li>After reaching full battery, it ascends back through the hatch and returns to the player.</li>
             </ol>
-            <p>If multiple drones return at the same time, they queue their entry — each drone waits until the hatch and charging area are clear before proceeding to avoid collisions.</p>
-            <p>When a drone's battery drops below the charge threshold, it immediately cancels whatever it is doing — including traveling to a base or waypoint — and diverts to the nearest charging station. If no station is within range, it flies back to the operator, lands nearby, and returns its chassis to your inventory.</p>
-            <p>If a drone's battery reaches zero before it can recharge or return, it shuts down completely and falls from the sky. The suit's console log will report the grid location and direction from the operator at the moment of signal loss. The drone's position will also remain visible on the HUD as you approach it.</p>
-            <p><strong>Battery state is remembered.</strong> When a drone is retrieved its remaining battery level is stored on the chassis item. A drone returned with a depleted battery can only be reactivated by standing within 3m of a powered charging station and using Spawn or dropping the item — the chassis will be placed directly on the pad and charge at the normal rate before automatically taking off.</p>
-            <p><strong>Important:</strong> DiscoFloor charging pads require an active power source to function. Charging drones and the exosuit both draw from connected batteries — make sure your base power supply is sufficient to support both.</p>
+            <p>If multiple drones return at the same time, they queue their entry â€” each drone waits until the hatch and charging area are clear before proceeding to avoid collisions.</p>
+            <p>Low-battery drones cancel current travel tasks (base/waypoint/chase) and divert to charging. If no charging station is available, the drone returns to the operator for retrieval.</p>
+            <p>If a drone reaches 0 battery before retrieval, it <strong>crashes in-world</strong> (no instant inventory teleport). The suit console reports the grid and relative direction from the operator at signal loss.</p>
+                        <p>Lost-drone tracking above the armor bar is intentionally disabled; operators rely on the console warning/grid callout for recovery.</p>
+            <p><strong>Battery state is remembered.</strong> When a drone is retrieved its remaining battery level is stored on the chassis item. A drone returned with a depleted battery can only be reactivated by standing within 3m of a powered charging station and using Spawn or dropping the item â€” the chassis will be placed directly on the pad and charge at the normal rate before automatically taking off.</p>
+            <p><strong>Important:</strong> DiscoFloor charging pads require an active power source to function. Charging drones and the exosuit both draw from connected batteries â€” make sure your base power supply is sufficient to support both.</p>
         </section>
 
         <section id="resources">
-            <h2>Section 8 — Resource Management</h2>
+            <h2>Section 8 â€” Resource Management</h2>
             <div class="grid-2">
                 <div>
                     <h3>8.1 Battery System</h3>
                     <ul>
                         <li>Drains during use + Climate Control + Auto-med.</li>
                         <li>Forcefield adds per-second drain.</li>
-                        <li><strong>0 Battery:</strong> Speed boost removed — player moves slowly as if wearing heavy unpowered armor. Flight shuts down.</li>
+                        <li><strong>0 Battery:</strong> Speed boost removed â€” player moves slowly as if wearing heavy unpowered armor. Flight shuts down.</li>
                         <li><strong>Refill:</strong> DiscoFloor, dropping small battery items, <code>/exorefill</code>.</li>
                     </ul>
                 </div>
@@ -656,14 +657,14 @@
                 </div>
             </div>
             <h3>8.3 Charging Station (DiscoFloor)</h3>
-            <p>Standing on a DiscoFloor recharges your suit battery. Higher tiers charge faster. You need to be standing directly on the floor to get the charge — hovering just above it won't count.</p>
+            <p>Standing on a DiscoFloor recharges your suit battery. Higher tiers charge faster. You need to be standing directly on the floor to get the charge â€” hovering just above it won't count.</p>
         </section>
 
         <section id="ui-hud">
-            <h2>Section 9 — UI / HUD</h2>
+            <h2>Section 9 â€” UI / HUD</h2>
             <h3>9.1 Status Bars</h3>
             <p>Armor, Battery, and Fuel bars on left. Auto-shift upward to avoid overlapping vanilla status effects.</p>
-            <h3>9.2 Enhanced HUD (Tiers 3–5)</h3>
+            <h3>9.2 Enhanced HUD (Tiers 3â€“5)</h3>
             <p>Compass updated every 1s. Markers for Drones (Yellow), Charging Stations (Cyan), Threats (Red), Teammates (Green), Base, and Waypoints.</p>
             <h3>9.3 Telemetry Panel</h3>
             <ul>
@@ -674,41 +675,41 @@
         </section>
 
         <section id="checklist">
-            <h2>Section 11 — QA Testing Checklist</h2>
+            <h2>Section 11 â€” QA Testing Checklist</h2>
             <ul class="checklist">
                 <li><input type="checkbox"> /exo lists tier commands and utility commands</li>
                 <li><input type="checkbox"> /exo1 confirms scrap deduction (no bypass)</li>
                 <li><input type="checkbox"> /exoitem1 gives metal.shield with skin</li>
-                <li><input type="checkbox"> Startup sequence (13.5s) — player moves slowly, speed boost absent until boot completes</li>
+                <li><input type="checkbox"> Startup sequence (13.5s) â€” player moves slowly, speed boost absent until boot completes</li>
                 <li><input type="checkbox"> Armor absorbs damage before health</li>
                 <li><input type="checkbox"> Fall damage reduction applies</li>
                 <li><input type="checkbox"> Ctrl + Space toggles exothrust reliably (no double trigger)</li>
                 <li><input type="checkbox"> E toggles altitude hold only during active flight</li>
-                <li><input type="checkbox"> Battery depleted — player moves slowly like unpowered heavy armor, no speed boost</li>
+                <li><input type="checkbox"> Battery depleted â€” player moves slowly like unpowered heavy armor, no speed boost</li>
                 <li><input type="checkbox"> Battery drain stops when all systems are inactive</li>
                 <li><input type="checkbox"> Fuel drains during fire weapon usage</li>
                 <li><input type="checkbox"> Drone spawns and enters hover/orbit</li>
                 <li><input type="checkbox"> Drone battery drains only while airborne (not while grounded/charging)</li>
-                <li><input type="checkbox"> Drone below charge threshold — immediately cancels current task (base travel, waypoint, etc.) and diverts to nearest charging station within 350m</li>
-                <li><input type="checkbox"> Drone low battery with no station in range — flies back to operator, lands nearby, chassis returned to inventory</li>
-                <li><input type="checkbox"> Drone battery hits zero before reaching charger or player — shuts down immediately and falls from sky; console log shows grid reference and direction from operator</li>
+                <li><input type="checkbox"> Drone below charge threshold â€” immediately cancels current task (base travel, waypoint, etc.) and diverts to nearest charging station within 350m</li>
+                <li><input type="checkbox"> Drone low battery with no station in range â€” flies back to operator, lands nearby, chassis returned to inventory</li>
+                <li><input type="checkbox"> Drone battery hits zero before reaching charger or player â€” shuts down immediately and falls from sky; console log shows grid reference and direction from operator</li>
                 <li><input type="checkbox"> Drone actively returning to player (despawn/low battery) is NOT redirected to a charging station mid-flight</li>
                 <li><input type="checkbox"> Drone hatch docking sequence (ascend/descend through floor-frame hatch)</li>
-                <li><input type="checkbox"> Multiple drones returning simultaneously — queue correctly, no collisions at hatch</li>
-                <li><input type="checkbox"> DiscoFloor requires active power source — charging stops if power is removed</li>
+                <li><input type="checkbox"> Multiple drones returning simultaneously â€” queue correctly, no collisions at hatch</li>
+                <li><input type="checkbox"> DiscoFloor requires active power source â€” charging stops if power is removed</li>
                 <li><input type="checkbox"> After full charge, drone ascends and returns to player</li>
-                <li><input type="checkbox"> Charging station beyond 350m — drone treated as no station found (returns to operator)</li>
-                <li><input type="checkbox"> Drone chassis retrieved with &lt;31 battery — blocked from spawning if no station within 3m (error shown)</li>
-                <li><input type="checkbox"> Drone chassis retrieved with &lt;31 battery — stand within 3m of powered station, Spawn places it on pad and it charges normally then auto-activates</li>
-                <li><input type="checkbox"> Drone retrieved with partial battery — respawns at that battery level (not full)</li>
-                <li><input type="checkbox"> Multiple players using suits simultaneously — no interference</li>
+                <li><input type="checkbox"> Charging station beyond 350m â€” drone treated as no station found (returns to operator)</li>
+                <li><input type="checkbox"> Drone chassis retrieved with &lt;31 battery â€” blocked from spawning if no station within 3m (error shown)</li>
+                <li><input type="checkbox"> Drone chassis retrieved with &lt;31 battery â€” stand within 3m of powered station, Spawn places it on pad and it charges normally then auto-activates</li>
+                <li><input type="checkbox"> Drone retrieved with partial battery â€” respawns at that battery level (not full)</li>
+                <li><input type="checkbox"> Multiple players using suits simultaneously â€” no interference</li>
                 <li><input type="checkbox"> Telemetry (ALT/AGL/SPD) updates and colors correctly</li>
                 <li><input type="checkbox"> Suit state restores on reconnect</li>
             </ul>
         </section>
 
         <section id="technical">
-            <h2>Section 13 — Technical Notes</h2>
+            <h2>Section 13 â€” Technical Notes</h2>
             <h3>Key Classes</h3>
             <ul>
                 <li><code>ExoData</code>: Main per-player state container.</li>
@@ -725,7 +726,7 @@
         </section>
 
         <section id="config-notes">
-            <h2>Section 14 — Configuration Notes</h2>
+            <h2>Section 14 â€” Configuration Notes</h2>
             <h3>Skin Ownership (<code>UseSkinOwnership</code>)</h3>
             <p>Controls how custom skins are applied to suit items (armor pieces, belt tools, etc.):</p>
             <ul>
