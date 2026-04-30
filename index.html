@@ -626,7 +626,8 @@
                 <li>After reaching full battery, it ascends back through the hatch and returns to the player.</li>
             </ol>
             <p>If multiple drones return at the same time, they queue their entry — each drone waits until the hatch and charging area are clear before proceeding to avoid collisions.</p>
-            <p>Drones currently traveling to a base or waypoint will not be redirected mid-flight. Only drones that are idle or returning due to low battery will initiate the charging sequence.</p>
+            <p>When a drone's battery drops below the charge threshold, it immediately cancels whatever it is doing — including traveling to a base or waypoint — and diverts to the nearest charging station. If no station is within range, it flies back to the operator, lands nearby, and returns its chassis to your inventory before battery runs out.</p>
+            <p>If a drone's battery reaches zero before it can recharge, it shuts down completely and falls from the sky. The suit's console log will report the grid location and direction from the operator at the moment of signal loss. The drone's position will also remain visible on the HUD as you approach it.</p>
             <p><strong>Important:</strong> DiscoFloor charging pads require an active power source to function. Charging drones and the exosuit both draw from connected batteries — make sure your base power supply is sufficient to support both.</p>
         </section>
 
