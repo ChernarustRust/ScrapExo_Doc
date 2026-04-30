@@ -34,6 +34,60 @@
             padding-bottom: 50px;
         }
 
+        /* ── STICKY NAV ── */
+        #sticky-nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: var(--secondary-dark);
+            border-bottom: 2px solid var(--accent-blue);
+            padding: 8px 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        #sticky-nav a {
+            color: #a8c4e0;
+            text-decoration: none;
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            white-space: nowrap;
+            padding: 3px 8px;
+            border-radius: 4px;
+            transition: background 0.15s, color 0.15s;
+        }
+
+        #sticky-nav a:hover {
+            background-color: var(--accent-blue);
+            color: #fff;
+        }
+
+        #search-box {
+            margin-left: auto;
+            padding: 5px 10px;
+            border-radius: 5px;
+            border: 1px solid #4a6fa5;
+            background: #0d1b2e;
+            color: #e0e0e0;
+            font-size: 0.85rem;
+            width: 200px;
+            outline: none;
+        }
+
+        #search-box::placeholder { color: #5a7aa0; }
+        #search-box:focus { border-color: #a8c4e0; }
+
+        .search-highlight {
+            background-color: #fff176;
+            color: #000;
+            border-radius: 2px;
+        }
+
+        .search-hidden { display: none !important; }
+
         header {
             background-color: var(--primary-dark);
             color: white;
@@ -235,6 +289,23 @@
     </style>
 </head>
 <body>
+
+    <nav id="sticky-nav">
+        <a href="#overview">Overview</a>
+        <a href="#quickstart">Quick Start</a>
+        <a href="#commands">Commands</a>
+        <a href="#permissions">Permissions</a>
+        <a href="#controls">Controls</a>
+        <a href="#core-systems">Systems</a>
+        <a href="#progression">Tiers</a>
+        <a href="#drones">Drones</a>
+        <a href="#resources">Resources</a>
+        <a href="#ui-hud">HUD / UI</a>
+        <a href="#checklist">QA Checklist</a>
+        <a href="#technical">Technical</a>
+        <a href="#config-notes">Config</a>
+        <input id="search-box" type="search" placeholder="Search docs…" autocomplete="off">
+    </nav>
 
     <header>
         <h1>ScrapExo Documentation</h1>
@@ -649,6 +720,60 @@
             <p>Set this to <code>true</code> if you want to respect Steam skin ownership and only show skins to players who own them.</p>
         </section>
     </div>
+
+    <script>
+        (function () {
+            const searchBox = document.getElementById('search-box');
+            const sections = Array.from(document.querySelectorAll('section'));
+
+            function clearHighlights(node) {
+                node.querySelectorAll('.search-highlight').forEach(function (el) {
+                    el.replaceWith(document.createTextNode(el.textContent));
+                });
+                node.normalize();
+            }
+
+            function highlightText(node, regex) {
+                if (node.nodeType === Node.TEXT_NODE) {
+                    const match = regex.exec(node.textContent);
+                    if (!match) return;
+                    const span = document.createElement('mark');
+                    span.className = 'search-highlight';
+                    const before = document.createTextNode(node.textContent.slice(0, match.index));
+                    span.textContent = match[0];
+                    const after = document.createTextNode(node.textContent.slice(match.index + match[0].length));
+                    node.parentNode.replaceChild(after, node);
+                    node.parentNode.insertBefore(span, after);
+                    node.parentNode.insertBefore(before, span);
+                } else if (node.nodeType === Node.ELEMENT_NODE && node.nodeName !== 'SCRIPT' && node.nodeName !== 'STYLE') {
+                    Array.from(node.childNodes).forEach(function (child) { highlightText(child, regex); });
+                }
+            }
+
+            searchBox.addEventListener('input', function () {
+                const query = searchBox.value.trim();
+
+                sections.forEach(function (sec) {
+                    clearHighlights(sec);
+                    sec.classList.remove('search-hidden');
+                });
+
+                if (!query) return;
+
+                const regex = new RegExp(query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+
+                sections.forEach(function (sec) {
+                    if (!regex.test(sec.textContent)) {
+                        sec.classList.add('search-hidden');
+                    } else {
+                        regex.lastIndex = 0;
+                        highlightText(sec, regex);
+                    }
+                    regex.lastIndex = 0;
+                });
+            });
+        })();
+    </script>
 
 </body>
 </html>
