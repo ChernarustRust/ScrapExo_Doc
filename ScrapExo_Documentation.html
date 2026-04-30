@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ScrapExo Plugin Documentation</title>
+    <style>
+        :root {
+            --primary-dark: #1a1a2e;
+            --secondary-dark: #16213e;
+            --accent-blue: #0f3460;
+            --text-color: #333;
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --border-color: #e0e0e0;
+            --code-bg: #f8f9fa;
+            --code-text: #d63384;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            padding-bottom: 50px;
+        }
+
+        header {
+            background-color: var(--primary-dark);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .plugin-info {
+            background-color: var(--secondary-dark);
+            color: #e0e0e0;
+            padding: 15px 25px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            font-size: 0.95rem;
+        }
+
+        .plugin-info div {
+            margin: 5px 15px;
+        }
+
+        section {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        h2 {
+            color: var(--primary-dark);
+            border-bottom: 3px solid var(--primary-dark);
+            padding-bottom: 10px;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            font-size: 1.4rem;
+            letter-spacing: 0.5px;
+        }
+
+        h3 {
+            color: var(--accent-blue);
+            margin: 25px 0 15px 0;
+            font-size: 1.2rem;
+            border-left: 4px solid var(--accent-blue);
+            padding-left: 12px;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        ul {
+            margin-bottom: 15px;
+            padding-left: 25px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.9rem;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 12px 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: #f1f3f5;
+            font-weight: 700;
+            color: var(--primary-dark);
+            text-transform: uppercase;
+            font-size: 0.8rem;
+        }
+
+        tr:nth-child(even) {
+            background-color: #fafafa;
+        }
+
+        tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        code {
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: var(--code-bg);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            color: var(--code-text);
+            border: 1px solid #eee;
+        }
+
+        .command-block {
+            display: block;
+            background-color: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            font-family: "SFMono-Regular", Consolas, monospace;
+            white-space: pre-wrap;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .checklist {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .checklist li {
+            padding: 6px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .checklist input[type="checkbox"] {
+            margin-right: 12px;
+            width: 16px;
+            height: 16px;
+            cursor: default;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+            .plugin-info {
+                flex-direction: column;
+            }
+        }
+
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            .container {
+                max-width: 100%;
+                padding: 0;
+            }
+            section {
+                box-shadow: none;
+                border: 1px solid #ddd;
+                page-break-inside: avoid;
+                margin-bottom: 20px;
+                padding: 20px;
+            }
+            header {
+                background-color: #1a1a2e !important;
+                color: #fff !important;
+                -webkit-print-color-adjust: exact;
+                padding: 20px;
+            }
+            .plugin-info {
+                background-color: #16213e !important;
+                color: #fff !important;
+                -webkit-print-color-adjust: exact;
+            }
+            th {
+                background-color: #f1f3f5 !important;
+                -webkit-print-color-adjust: exact;
+            }
+            code {
+                border: 1px solid #ccc;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>ScrapExo Documentation</h1>
+        <p>Advanced Tiered Exoskeleton System for Rust</p>
+    </header>
+
+    <div class="container">
+        <div class="plugin-info">
+            <div><strong>Plugin:</strong> ScrapExo</div>
+            <div><strong>Author:</strong> Chernarust</div>
+            <div><strong>Version:</strong> 1.0.0</div>
+            <div><strong>Framework:</strong> Carbon/Oxide</div>
+            <div><strong>Dependency:</strong> ImageLibrary</div>
+        </div>
+
+        <section id="overview">
+            <h2>Section 1 — Overview</h2>
+            <p>ScrapExo is a tiered exosuit system for Rust. Players activate a powered exoskeleton that replaces their standard armor and provides enhanced combat, mobility, survivability, and drone support. The suit is powered by a battery and fuel system. All features scale across 5 configurable tiers.</p>
+            <h3>Core Impacts:</h3>
+            <ul>
+                <li>Equips a full multi-layer suit (NVG, diving tank, and other attire) that provides passive protection — all damage is absorbed by the suit's armor bar before your health is touched</li>
+                <li>Provides enhanced movement speed on land, in water, and optionally in flight (Exothrust)</li>
+                <li>Grants automated medical support (auto-syringe, auto-bandage)</li>
+                <li>Provides climate control (heater/AC) to prevent cold/heat damage</li>
+                <li>Includes a fire weapon (longsword variant) and a forcefield item as belt tools</li>
+                <li>Tiers 3-5 support autonomous combat/scouting drones</li>
+                <li>Enhanced HUD shows compass-style directional markers for threats, teammates, bases, charging stations, and waypoints, plus telemetry (ALT, AGL, SPD)</li>
+                <li>Suit state persists across disconnects and is restored on reconnect</li>
+            </ul>
+            <h3>What This Replaces</h3>
+            <p>ScrapExo replaces or supersedes the following vanilla Rust mechanics:</p>
+            <ul>
+                <li><strong>Armor system</strong> — multi-layer suit (NVG, diving tank, and various wear items) stacked in clothing slots, providing passive resistance to damage and environmental hazards</li>
+                <li><strong>Healing items</strong> — auto-syringe and auto-bandage trigger automatically</li>
+                <li><strong>Temperature survival</strong> — built-in heater and AC manage climate passively</li>
+                <li><strong>Mobility enhancements</strong> — speed boost, flight, and swim improvements replace vanilla movement</li>
+                <li><strong>Combat support</strong> — autonomous drones replace the need for manual combat tools</li>
+            </ul>
+            <p>ScrapExo functions as a full gameplay system layer rather than a standalone utility plugin, integrating combat, mobility, automation, and UI into a unified experience.</p>
+        </section>
+
+        <section id="quickstart">
+            <h2>🚀 Quick Start</h2>
+            <ol>
+                <li>Run <code>/exo1</code> (or <code>/exo5</code> for full feature testing)</li>
+                <li>Wait for the startup sequence (~13 seconds) — movement is reduced to a slow crawl while the suit powers up</li>
+                <li>Press <strong>Ctrl + Space</strong> to enable Exothrust flight</li>
+                <li>Use <strong>W / A / S / D</strong> to fly, <strong>Space</strong> to ascend, <strong>Ctrl</strong> to descend</li>
+                <li>Press <strong>E</strong> to toggle altitude hold while flying</li>
+                <li>Use <code>/exodrone</code> to manage drones (Tier 3+)</li>
+                <li>Use <code>/exorefill</code> to refill battery and fuel instantly (if permitted)</li>
+            </ol>
+        </section>
+
+        <section id="commands">
+            <h2>Section 2 — Commands</h2>
+            
+            <h3>Chat Commands (player)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Command</th>
+                        <th>Permission Required</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>/exo</code></td><td>none</td><td>Displays list of available tier commands and utility commands</td></tr>
+                    <tr><td><code>/exo1</code></td><td>scrapexo.tier1</td><td>Activate or confirm Tier 1 exosuit</td></tr>
+                    <tr><td><code>/exo2</code></td><td>scrapexo.tier2</td><td>Activate or confirm Tier 2 exosuit</td></tr>
+                    <tr><td><code>/exo3</code></td><td>scrapexo.tier3</td><td>Activate or confirm Tier 3 exosuit</td></tr>
+                    <tr><td><code>/exo4</code></td><td>scrapexo.tier4</td><td>Activate or confirm Tier 4 exosuit</td></tr>
+                    <tr><td><code>/exo5</code></td><td>scrapexo.tier5</td><td>Activate or confirm Tier 5 exosuit</td></tr>
+                    <tr><td><code>/exoitem1</code></td><td>scrapexo.item.tier1</td><td>Give yourself a Tier 1 activation item (metal.shield with custom skin)</td></tr>
+                    <tr><td><code>/exoitem2</code></td><td>scrapexo.item.tier2</td><td>Give yourself a Tier 2 activation item</td></tr>
+                    <tr><td><code>/exoitem3</code></td><td>scrapexo.item.tier3</td><td>Give yourself a Tier 3 activation item</td></tr>
+                    <tr><td><code>/exoitem4</code></td><td>scrapexo.item.tier4</td><td>Give yourself a Tier 4 activation item</td></tr>
+                    <tr><td><code>/exoitem5</code></td><td>scrapexo.item.tier5</td><td>Give yourself a Tier 5 activation item</td></tr>
+                    <tr><td><code>/exorefill</code></td><td>scrapexo.refill</td><td>Instantly refill active exosuit battery and fuel to maximum</td></tr>
+                    <tr><td><code>/exodrone</code></td><td>none (suit required, Tier 3+)</td><td>Opens the drone management panel. Available only to players wearing a Tier 3 or higher exosuit. From here you can select individual drones (D1, D2, D3...) or all at once, choose an authorized base or saved waypoint as a target, deploy selected drones, recall a specific drone, recall all drones, access drone storage, spawn drones (requires elevated permission), or despawn all active drones. Waypoints appear on both the Enhanced HUD compass and inside the drone panel. <em>(Early iteration — functional, UI polish ongoing.)</em></td></tr>
+                    <tr><td><code>/wpmark [name]</code></td><td>none (suit + HUD)</td><td>Mark your aim target as a named waypoint. Waypoints appear directly on the Enhanced HUD compass and update in real time as you move.</td></tr>
+                    <tr><td><code>/wplist</code></td><td>none (suit + HUD)</td><td>List all saved waypoints</td></tr>
+                    <tr><td><code>/wpdel [name]</code></td><td>none (suit + HUD)</td><td>Delete a specific waypoint by name</td></tr>
+                    <tr><td><code>/wpclear</code></td><td>none (suit + HUD)</td><td>Delete all waypoints</td></tr>
+                    <tr><td><code>/moveradar</code></td><td>scrapexo.moveui</td><td>Open radar panel repositioning UI</td></tr>
+                    <tr><td><code>/moveconsole</code></td><td>scrapexo.moveui</td><td>Open console/log panel repositioning UI</td></tr>
+                    <tr><td><code>/movebars</code></td><td>scrapexo.moveui</td><td>Open status bars repositioning UI</td></tr>
+                </tbody>
+            </table>
+
+            <h3>Console Commands (player, UI-driven)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Command</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>exodrone.closeui</code></td><td>Close drone management UI</td></tr>
+                    <tr><td><code>exodrone.selectdrone [index]</code></td><td>Select a specific drone by index (0-based). Pass -1 to select ALL</td></tr>
+                    <tr><td><code>exodrone.send</code></td><td>Deploy selected drone(s) to the chosen base or waypoint. Drones actively charging on a pad cannot be redirected; drones in transit can be overridden</td></tr>
+                    <tr><td><code>exodrone.recall</code></td><td>Recall a specific drone to the operator. Requires a D# to be selected first</td></tr>
+                    <tr><td><code>exodrone.hover</code></td><td>Recall all drones back to orbit around the operator (clears any base/waypoint assignment)</td></tr>
+                    <tr><td><code>exodrone.inventory</code></td><td>Open drone cargo inventory for looting</td></tr>
+                    <tr><td><code>exodrone.selectbase</code></td><td>Select/deselect a base location (args: x y z)</td></tr>
+                    <tr><td><code>exodrone.selectwaypoint [index]</code></td><td>Select/deselect a saved waypoint as a target. Clears base selection</td></tr>
+                    <tr><td><code>exodrone.despawn</code></td><td>Despawn all active drones</td></tr>
+                    <tr><td><code>exodrone.spawndrone</code></td><td>Spawn a drone directly from the drone management panel (requires scrapexo.spawndrone permission)</td></tr>
+                    <tr><td><code>exo.altitudehold</code></td><td>Toggle exothrust altitude hold</td></tr>
+                    <tr><td><code>scrapexo.radarmove [args]</code></td><td>Reposition radar panel (left/right/up/down/default/close)</td></tr>
+                    <tr><td><code>scrapexo.consolemove [args]</code></td><td>Reposition console panel (left/right/up/down/default/close)</td></tr>
+                    <tr><td><code>scrapexo.barsmove [args]</code></td><td>Reposition status bars panel (left/right/up/down/default/close)</td></tr>
+                </tbody>
+            </table>
+
+            <h3>Console Commands (admin)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Command</th>
+                        <th>Permission</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>exo.debug [player]</code></td><td>scrapexo.admin</td><td>Print exosuit debug state for self or named player</td></tr>
+                    <tr><td><code>scrapexo.refill</code></td><td>scrapexo.admin</td><td>Server-side refill command</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="permissions">
+            <h2>Section 3 — Permissions</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Permission</th>
+                        <th>Effect</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>scrapexo.tier1-5</code></td><td>Allows use of /exo1-5 to activate specific Tiers</td></tr>
+                    <tr><td><code>scrapexo.item.tier1-5</code></td><td>Allows /exoitem1-5 to receive activation items</td></tr>
+                    <tr><td><code>scrapexo.refill</code></td><td>Allows /exorefill instant refill</td></tr>
+                    <tr><td><code>scrapexo.bypass.cost</code></td><td>Skip scrap cost on suit activation</td></tr>
+                    <tr><td><code>scrapexo.bypass.cooldown</code></td><td>Skip activation cooldown</td></tr>
+                    <tr><td><code>scrapexo.bypass.battery</code></td><td>Unlimited battery — all battery-gated features available</td></tr>
+                    <tr><td><code>scrapexo.bypass.fuel</code></td><td>Unlimited exothrust fuel</td></tr>
+                    <tr><td><code>scrapexo.bypass.drone</code></td><td>Automatically spawns maximum configured drones without requiring a drone item drop</td></tr>
+                    <tr><td><code>scrapexo.spawndrone</code></td><td>Allows use of the Spawn Drone button in the drone management panel</td></tr>
+                    <tr><td><code>scrapexo.moveui</code></td><td>Allows UI repositioning commands</td></tr>
+                    <tr><td><code>scrapexo.admin</code></td><td>Access to exo.debug and server-side refill</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="controls">
+            <h2>Section 4 — Controls</h2>
+            
+            <h3>General Exosuit Controls</h3>
+            <table>
+                <thead>
+                    <tr><th>Action</th><th>Input</th><th>Condition</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Toggle altitude hold</td><td>E</td><td>Exothrust must be active</td></tr>
+                    <tr><td>Deploy forcefield</td><td>Left Click</td><td>Forcefield item must be held</td></tr>
+                </tbody>
+            </table>
+
+            <h3>Exothrust Flight Controls</h3>
+            <table>
+                <thead>
+                    <tr><th>Action</th><th>Input</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Toggle exothrust on / off</td><td>Ctrl + Space</td></tr>
+                    <tr><td>Fly forward / backward</td><td>W / S</td></tr>
+                    <tr><td>Strafe left / right</td><td>A / D</td></tr>
+                    <tr><td>Ascend</td><td>Space</td></tr>
+                    <tr><td>Descend</td><td>Ctrl</td></tr>
+                    <tr><td>Boost speed</td><td>Shift (hold)</td></tr>
+                    <tr><td>Pause fuel consumption</td><td>Hold Ctrl while stationary</td></tr>
+                </tbody>
+            </table>
+
+            <h3>Swimming Controls</h3>
+            <table>
+                <thead>
+                    <tr><th>Action</th><th>Input</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Swim up / down</td><td>Space / Ctrl</td></tr>
+                    <tr><td>Boost swim speed</td><td>Shift (SPRINT)</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="core-systems">
+            <h2>Section 5 — Core Systems</h2>
+            
+            <h3>5.1 Exosuit Activation System</h3>
+            <p>Activation is a two-step confirmation process or instant via activation item:</p>
+            <ul>
+                <li><strong>Confirmation:</strong> Run <code>/exo#</code> twice — the first press shows the resource cost, the second confirms and activates.</li>
+                <li><strong>Auto-Equip:</strong> Suit equips custom armor, saves original wear/belt, and locks slots.</li>
+                <li><strong>Startup:</strong> 13.5-second boot sequence with diagnostic messages. Speed boosts are removed during this window — you can still move but only at a slow unassisted pace.</li>
+                <li><strong>Alternative:</strong> Place a matching-skin metal.shield in the backpack slot.</li>
+                <li><strong>Deactivation:</strong> Run <code>/exo#</code> again for a 10-second shutdown sequence.</li>
+            </ul>
+
+            <h3>5.2 Armor System</h3>
+            <p>The suit is made up of multiple layered wear items (NVG, diving tank, and other attire) all stacked into the clothing slots at once. Together they provide passive protection against damage and environmental hazards. The <strong>Armor Bar</strong> on your HUD represents the combined health of these layers — when it hits zero, the suit is destroyed. Your personal health is not affected as long as armor remains.</p>
+            <ul>
+                <li>All damage is absorbed by the armor bar before touching your health.</li>
+                <li>Hit effects play on every strike. When the armor bar fully depletes, a debris burst effect always plays.</li>
+                <li>Fall damage is reduced by 50% (default).</li>
+                <li>If any bleeding occurs (e.g. during initial suit-up), it is automatically cleared within a fraction of a second.</li>
+            </ul>
+
+            <h3>5.3 Climate Control System</h3>
+            <ul>
+                <li><strong>Heater:</strong> Activates &lt; 15°C, targets 32°C.</li>
+                <li><strong>AC:</strong> Activates &gt; 38°C, targets 28°C.</li>
+                <li><strong>Drains:</strong> Battery.</li>
+                <li><strong>Cycle:</strong> 30-second minimum prevent rapid switching.</li>
+            </ul>
+
+            <h3>5.4 Speed / Movement System</h3>
+            <p>The suit gives you a speed boost that scales up per tier. The game's built-in anti-cheat is suppressed to allow this enhanced movement without triggering false kicks.</p>
+
+            <h3>5.5 Auto-Medical System</h3>
+            <p>The suit monitors your health and automatically uses medical items from your inventory. This is most useful during the startup phase before the suit is fully powered on.</p>
+            <ul>
+                <li><strong>Auto-Syringe:</strong> If your health drops below 50, the suit automatically uses a syringe from your inventory. Costs battery.</li>
+                <li><strong>Auto-Bandage:</strong> If bleeding is detected, the suit automatically applies a bandage. Costs battery. (Once the suit is fully active, bleeding is suppressed passively and auto-bandage acts as a backup safety net.)</li>
+                <li><strong>Cooldown:</strong> 10 seconds between auto-syringe uses, 5 seconds between auto-bandage uses.</li>
+            </ul>
+
+            <h3>5.6 Night Vision System</h3>
+            <p>Tiers 2–5 automatically enable night vision goggles when the suit activates. They are removed when the suit shuts down.</p>
+
+            <h3>5.7 Fire Weapon System</h3>
+            <p>A custom fire longsword is placed in your belt. It shoots heat projectiles that deal fire damage and can damage structures. Each shot consumes fuel.</p>
+
+            <h3>5.8 Forcefield System</h3>
+            <p>A forcefield item is placed in your belt. When activated, it projects a visible protective sphere around you that absorbs incoming damage. The sphere flashes red whenever it takes a hit. While the forcefield is held in your hand, shooting is disabled. Drains battery for the duration it's active.</p>
+        </section>
+
+        <section id="progression">
+            <h2>Section 6 — Progression / Tiers</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Property</th>
+                        <th>Tier 1</th>
+                        <th>Tier 2</th>
+                        <th>Tier 3</th>
+                        <th>Tier 4</th>
+                        <th>Tier 5</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Armor Pool</td><td>250</td><td>500</td><td>750</td><td>1000</td><td>1500</td></tr>
+                    <tr><td>Scrap Cost</td><td>500</td><td>750</td><td>1200</td><td>2500</td><td>5000</td></tr>
+                    <tr><td>Speed Multiplier</td><td>1.2x</td><td>1.4x</td><td>1.6x</td><td>1.8x</td><td>2.0x</td></tr>
+                    <tr><td>Battery Capacity</td><td>400</td><td>500</td><td>600</td><td>1200</td><td>1600</td></tr>
+                    <tr><td>Battery Drain/hr</td><td>2000</td><td>3000</td><td>4000</td><td>5000</td><td>5500</td></tr>
+                    <tr><td>Fuel Capacity</td><td>100</td><td>250</td><td>500</td><td>1000</td><td>1500</td></tr>
+                    <tr><td>Night Vision</td><td>No</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+                    <tr><td>Enhanced HUD</td><td>No</td><td>No</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+                    <tr><td>Drones</td><td>0</td><td>0</td><td>1</td><td>2</td><td>3</td></tr>
+                    <tr><td>Forcefield Dur.</td><td>10s</td><td>15s</td><td>20s</td><td>30s</td><td>45s</td></tr>
+                    <tr><td>Forcefield CD</td><td>1200s</td><td>900s</td><td>600s</td><td>300s</td><td>180s</td></tr>
+                    <tr><td>Exothrust Force</td><td>10</td><td>20</td><td>30</td><td>50</td><td>65</td></tr>
+                    <tr><td>Target Lock</td><td>No</td><td>No</td><td>No</td><td>No</td><td>Yes</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="drones">
+            <h2>Section 7 — Drone System (Detailed)</h2>
+            <h3>7.1 Drone Behavior States</h3>
+            <p>At any given time, each drone is in one of the following modes:</p>
+            <ul>
+                <li><strong>Hovering:</strong> Orbiting around you, waiting for something to happen.</li>
+                <li><strong>Going to base:</strong> Heading to your selected base to recharge through the hatch or await orders.</li>
+                <li><strong>Holding at waypoint:</strong> Hovering in place above a saved waypoint until recalled.</li>
+                <li><strong>Returning to player:</strong> Flying back to you after a recall command.</li>
+                <li><strong>Landing / Ascending:</strong> Performing the hatch docking sequence — centering above the door and dropping in, or climbing back out after charging.</li>
+                <li><strong>Charging:</strong> Sitting on the DiscoFloor inside your base, refilling its battery.</li>
+                <li><strong>Chasing a target:</strong> Actively pursuing and attacking an enemy.</li>
+                <li><strong>Sync lost:</strong> Owner has disconnected — drone wanders until the player reconnects.</li>
+            </ul>
+            <h3>7.2 Drone Management Panel</h3>
+            <p>Opened with <code>/exodrone</code>. Requires Tier 3+ exosuit. The panel has two columns: your authorized bases on the left and your saved waypoints on the right.</p>
+            <h4>Drone Selector</h4>
+            <p>A row of buttons appears at the top of the panel showing each active drone (D1, D2, D3...) plus an ALL button. Click a D# to target that specific drone for your next action. Click ALL to apply actions to every drone at once. Selecting a drone that is unavailable or destroyed shows a warning and keeps the current selection unchanged. A chat confirmation (<code>[DRONE] Selected: D1</code>) is sent each time you make a selection so you can verify what the system registered. Action buttons (Deploy, Recall, Recall All) have a short cooldown to prevent accidental double-firing from rapid clicks.</p>
+            <h4>Actions</h4>
+            <ul>
+                <li><strong>Deploy to Target:</strong> Sends the selected drone(s) to whichever base or waypoint is highlighted yellow. Drones actively charging on their pad are protected and cannot be redirected — drones still in transit can be overridden immediately.</li>
+                <li><strong>Recall:</strong> Brings a specific selected drone (D1, D2...) back to you. Requires a D# to be selected — not available when ALL is active.</li>
+                <li><strong>Recall All:</strong> Brings every drone back to orbit around you and clears all base/waypoint assignments.</li>
+                <li><strong>Storage:</strong> Opens the first available drone's cargo inventory.</li>
+                <li><strong>Spawn:</strong> Spawns a new drone (requires <code>scrapexo.spawndrone</code> permission). Shows a warning if permission is missing.</li>
+                <li><strong>Despawn:</strong> Removes all active drones.</li>
+            </ul>
+            <h4>Waypoints in the Panel</h4>
+            <p>Waypoints saved with <code>/wpmark</code> appear in the right column of the drone panel. Selecting one and clicking <strong>Deploy to Target</strong> sends the selected drone(s) there. Drones hold position above the waypoint until recalled — they do not automatically return on their own.</p>
+            <h3>7.3 Charging Behavior (Hatch Docking)</h3>
+            <ol>
+                <li>When battery runs low, the drone heads back to your registered base.</li>
+                <li>It finds the floor-frame hatch door above the charging station.</li>
+                <li>It centers itself directly above the hatch, opens it, then descends straight down through the opening.</li>
+                <li>It lands on the DiscoFloor and recharges. Once full, it flies back out the same way and returns to you.</li>
+            </ol>
+            <p>If multiple drones are returning at the same time, they take turns — each one waits for the hatch to be clear before entering so they don't collide. Drones that are deploying to a base or waypoint will not have their charging interrupted mid-flight; only drones actively sitting on the charging pad are fully protected from redirection.</p>
+        </section>
+
+        <section id="resources">
+            <h2>Section 8 — Resource Management</h2>
+            <div class="grid-2">
+                <div>
+                    <h3>8.1 Battery System</h3>
+                    <ul>
+                        <li>Drains during use + Climate Control + Auto-med.</li>
+                        <li>Forcefield adds per-second drain.</li>
+                        <li><strong>0 Battery:</strong> Speed boost removed — player moves slowly as if wearing heavy unpowered armor. Flight shuts down.</li>
+                        <li><strong>Refill:</strong> DiscoFloor, dropping small battery items, <code>/exorefill</code>.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>8.2 Fuel System</h3>
+                    <p><strong>Fuel is used for:</strong> Exothrust (flight) and Fire Weapon (longsword attacks)</p>
+                    <ul>
+                        <li>Drains during Exothrust flight.</li>
+                        <li>Fire weapon shots multiply fuel consumption.</li>
+                        <li><strong>0 Fuel:</strong> Automatic flight shutdown.</li>
+                        <li><strong>Refill:</strong> Drop lowgradefuel, <code>/exorefill</code>.</li>
+                    </ul>
+                </div>
+            </div>
+            <h3>8.3 Charging Station (DiscoFloor)</h3>
+            <p>Standing on a DiscoFloor recharges your suit battery. Higher tiers charge faster. You need to be standing directly on the floor to get the charge — hovering just above it won't count.</p>
+        </section>
+
+        <section id="ui-hud">
+            <h2>Section 9 — UI / HUD</h2>
+            <h3>9.1 Status Bars</h3>
+            <p>Armor, Battery, and Fuel bars on left. Auto-shift upward to avoid overlapping vanilla status effects.</p>
+            <h3>9.2 Enhanced HUD (Tiers 3–5)</h3>
+            <p>Compass updated every 1s. Markers for Drones (Yellow), Charging Stations (Cyan), Threats (Red), Teammates (Green), Base, and Waypoints.</p>
+            <h3>9.3 Telemetry Panel</h3>
+            <ul>
+                <li><strong>[ALT]:</strong> Altitude (MSL).</li>
+                <li><strong>[AGL]:</strong> Height via raycast (Color-coded: Red &lt; 10ft, Yellow &lt; 30ft).</li>
+                <li><strong>[SPD]:</strong> Speed (Color-coded: Cyan &gt; 3m/s, Orange &gt; 10m/s).</li>
+            </ul>
+        </section>
+
+        <section id="checklist">
+            <h2>Section 11 — QA Testing Checklist</h2>
+            <ul class="checklist">
+                <li><input type="checkbox"> /exo lists tier commands and utility commands</li>
+                <li><input type="checkbox"> /exo1 confirms scrap deduction (no bypass)</li>
+                <li><input type="checkbox"> /exoitem1 gives metal.shield with skin</li>
+                <li><input type="checkbox"> Startup sequence (13.5s) — player moves slowly, speed boost absent until boot completes</li>
+                <li><input type="checkbox"> Armor absorbs damage before health</li>
+                <li><input type="checkbox"> Fall damage reduction applies</li>
+                <li><input type="checkbox"> Ctrl + Space toggles exothrust reliably (no double trigger)</li>
+                <li><input type="checkbox"> E toggles altitude hold only during active flight</li>
+                <li><input type="checkbox"> Battery depleted — player moves slowly like unpowered heavy armor, no speed boost</li>
+                <li><input type="checkbox"> Battery drain stops when all systems are inactive</li>
+                <li><input type="checkbox"> Fuel drains during fire weapon usage</li>
+                <li><input type="checkbox"> Drone spawns and enters hover/orbit</li>
+                <li><input type="checkbox"> Drone returns correctly when battery is low</li>
+                <li><input type="checkbox"> Drone hatch docking sequence (ascend/descend)</li>
+                <li><input type="checkbox"> Multiple players using suits simultaneously — no interference</li>
+                <li><input type="checkbox"> Telemetry (ALT/AGL/SPD) updates and colors correctly</li>
+                <li><input type="checkbox"> Suit state restores on reconnect</li>
+            </ul>
+        </section>
+
+        <section id="technical">
+            <h2>Section 13 — Technical Notes</h2>
+            <h3>Key Classes</h3>
+            <ul>
+                <li><code>ExoData</code>: Main per-player state container.</li>
+                <li><code>ExoDrone</code>: MonoBehaviour (16 Hz update) for drone AI.</li>
+                <li><code>ExothrustComponent</code>: Physics handler for flight.</li>
+                <li><code>MovableBaseMountable</code>: Custom mountable to prevent dismounting.</li>
+            </ul>
+            <h3>Performance</h3>
+            <ul>
+                <li>Content-hash caching for all UI redraws.</li>
+                <li>Raycasts limited to 1 per second for Telemetry.</li>
+                <li>Facepunch.Pool used for all entity lists.</li>
+            </ul>
+        </section>
+
+        <section id="config-notes">
+            <h2>Section 14 — Configuration Notes</h2>
+            <h3>Skin Ownership</h3>
+            <p>The plugin uses custom skins on suit items (armor pieces, belt tools, etc.). The <strong>UseSkinOwnership</strong> setting in the config controls how these skins are applied:</p>
+            <ul>
+                <li><strong>false (default):</strong> The plugin applies the configured skins regardless of whether the player owns them. Everyone sees the custom skin.</li>
+                <li><strong>true:</strong> Skins are only applied if the player actually owns them on Steam. If they don't own a skin, that item will appear with its default look instead.</li>
+            </ul>
+            <p>Set this to <code>true</code> if you want to respect Steam skin ownership and only show skins to players who own them.</p>
+        </section>
+    </div>
+
+</body>
+</html>
