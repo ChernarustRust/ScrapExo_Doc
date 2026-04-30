@@ -620,12 +620,14 @@
             <p>Waypoints saved with <code>/wpmark</code> appear in the right column of the drone panel. Selecting one and clicking <strong>Deploy to Target</strong> sends the selected drone(s) there. Drones circle above the waypoint until recalled — they do not automatically return on their own unless battery depletes.</p>
             <h3>7.3 Charging Behavior (Hatch Docking)</h3>
             <ol>
-                <li>When battery runs low, the drone heads back to your registered base.</li>
-                <li>It finds the floor-frame hatch door above the charging station.</li>
-                <li>It centers itself directly above the hatch, opens it, then descends straight down through the opening.</li>
-                <li>It lands on the DiscoFloor and recharges. Once full, it flies back out the same way and returns to you.</li>
+                <li>When a drone's battery runs low, it returns to your registered base within 350m to recharge.</li>
+                <li>It navigates to the floor-frame hatch above the charging area, aligns itself over the opening, and opens the hatch.</li>
+                <li>The drone descends through the hatch into the base interior, moves to an available DiscoFloor charging pad, positions itself correctly, and begins charging.</li>
+                <li>After reaching full battery, it ascends back through the hatch and returns to the player.</li>
             </ol>
-            <p>If multiple drones are returning at the same time, they take turns — each one waits for the hatch to be clear before entering so they don't collide. Drones that are deploying to a base or waypoint will not have their charging interrupted mid-flight; only drones actively sitting on the charging pad are fully protected from redirection.</p>
+            <p>If multiple drones return at the same time, they queue their entry — each drone waits until the hatch and charging area are clear before proceeding to avoid collisions.</p>
+            <p>Drones currently traveling to a base or waypoint will not be redirected mid-flight. Only drones that are idle or returning due to low battery will initiate the charging sequence.</p>
+            <p><strong>Important:</strong> DiscoFloor charging pads require an active power source to function. Charging drones and the exosuit both draw from connected batteries — make sure your base power supply is sufficient to support both.</p>
         </section>
 
         <section id="resources">
