@@ -132,6 +132,7 @@
             padding: 30px;
             margin-bottom: 40px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            scroll-margin-top: 70px;
         }
 
         h2 {
@@ -711,13 +712,12 @@
 
         <section id="config-notes">
             <h2>Section 14 — Configuration Notes</h2>
-            <h3>Skin Ownership</h3>
-            <p>The plugin uses custom skins on suit items (armor pieces, belt tools, etc.). The <strong>UseSkinOwnership</strong> setting in the config controls how these skins are applied:</p>
+            <h3>Skin Ownership (<code>UseSkinOwnership</code>)</h3>
+            <p>Controls how custom skins are applied to suit items (armor pieces, belt tools, etc.):</p>
             <ul>
-                <li><strong>false (default):</strong> The plugin applies the configured skins regardless of whether the player owns them.</li>
-                <li><strong>true:</strong> Skins are only applied if the player actually owns them on Steam. If they don't own a skin, that item will appear with its default look instead.</li>
+                <li><strong>true (recommended):</strong> Skins are only applied if the player owns them. Non-owned skins fall back to default appearance.</li>
+                <li><strong>false:</strong> Forces skins regardless of ownership. May not work with all DLC/paid skins and is not recommended.</li>
             </ul>
-            <p>Set this to <code>true</code> if you want to respect Steam skin ownership and only show skins to players who own them.</p>
         </section>
     </div>
 
