@@ -334,6 +334,7 @@
                 <li>Grants automated medical support (auto-syringe, auto-bandage)</li>
                 <li>Provides climate control (heater/AC) to prevent cold/heat damage</li>
                 <li>Includes a fire weapon (longsword variant) and a forcefield item as belt tools</li>
+                <li>Tier 5 Exothrust supports an optional shoulder launcher that can lock and fire at major vehicle bosses such as Bradley APC and patrol helicopter</li>
                 <li>Tiers 3-5 support autonomous combat/scouting drones with optional live camera viewing from the drone management panel</li>
                 <li>Enhanced HUD shows compass-style directional markers for threats, teammates, bases, charging stations, and waypoints, plus telemetry (ALT, AGL, SPD)</li>
                 <li>Suit state persists across disconnects and is restored on reconnect</li>
@@ -572,6 +573,7 @@
                 <li><strong>Visuals:</strong> The shoulder launcher prefab can be shown or hidden with <code>SpawnShoulderLauncherPrefab</code>.</li>
                 <li><strong>Aiming visual:</strong> The launcher stays on a fixed left-shoulder mount, tracks pitch up/down, and uses limited yaw clamped to 18 degrees in either direction.</li>
                 <li><strong>Firing:</strong> Shoulder launcher autofire uses the active aim-assist lock, battery drain, and fire interval. Valid lock targets include normal aim-assist targets plus major vehicle bosses such as Bradley APC and patrol helicopter.</li>
+                <li><strong>Vehicle boss range:</strong> Bradley APC and patrol helicopter use <code>AimAssist.VehicleBossRange</code> for lock range, so aircraft can be locked farther away than normal players, NPCs, or animals.</li>
                 <li><strong>Note:</strong> The shoulder launcher is visually aligned for first-person gameplay. Third-person and spectator views may show offset positioning due to Rust player model limitations. This does not affect functionality.</li>
             </ul>
         </section>
@@ -699,7 +701,7 @@
             <p>Armor, Battery, and Fuel bars on left. Auto-shift upward to avoid overlapping vanilla status effects.</p>
             <h3>9.2 Enhanced HUD (Tiers 3–5)</h3>
             <p>Compass updated every 1s. Markers for Drones (Yellow), Charging Stations (Cyan), Threats (Red), Teammates (Green), Base, and Waypoints.</p>
-            <p>The radar also shows major vehicle boss targets such as Bradley APC and patrol helicopter as larger orange contacts so they stand out from normal hostile dots.</p>
+            <p>The radar also shows major vehicle boss targets such as Bradley APC and patrol helicopter as larger orange contacts so they stand out from normal hostile dots. These same vehicle boss types can be used by Tier 5 target lock and shoulder launcher firing.</p>
             <h3>9.3 Telemetry Panel</h3>
             <ul>
                 <li><strong>[ALT]:</strong> Altitude (MSL).</li>
@@ -750,6 +752,7 @@
                 <li><input type="checkbox"> Shoulder launcher does not appear during normal suit activation</li>
                 <li><input type="checkbox"> Shoulder launcher visual follows <code>SpawnShoulderLauncherPrefab</code></li>
                 <li><input type="checkbox"> Shoulder launcher can lock/fire at Bradley APC and patrol helicopter targets</li>
+                <li><input type="checkbox"> Patrol helicopter lock range uses <code>AimAssist.VehicleBossRange</code> and can exceed normal aim-assist range</li>
                 <li><input type="checkbox"> Radar shows Bradley APC and patrol helicopter as larger orange contacts</li>
                 <li><input type="checkbox"> E toggles altitude hold only during active flight</li>
                 <li><input type="checkbox"> Battery depleted — player moves slowly like unpowered heavy armor, no speed boost</li>
@@ -820,6 +823,7 @@
             <ul>
                 <li><strong>Tier 5 Shoulder Launcher system:</strong> Fully functional targeting and firing logic, designed primarily for first-person use.</li>
                 <li><strong>Visual toggle:</strong> Set <code>SpawnShoulderLauncherPrefab</code> to <code>false</code> to disable the shoulder launcher visual while keeping firing behavior controlled by the existing per-tier shoulder launcher settings.</li>
+                <li><strong>Vehicle boss lock range:</strong> <code>AimAssist.VehicleBossRange</code> controls long-range locking for Bradley APC and patrol helicopter. Normal aim-assist targets continue to use <code>AimAssist.Range</code>.</li>
                 <li><strong>View limitation:</strong> Third-person and spectator views may show offset positioning due to Rust player model limitations. This does not affect functionality.</li>
             </ul>
             <h3>Skin Ownership (<code>UseSkinOwnership</code>)</h3>
