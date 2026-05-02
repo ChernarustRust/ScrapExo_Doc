@@ -358,7 +358,7 @@
                 <li>Press <strong>Ctrl + Space</strong> to enable Exothrust flight</li>
                 <li>Use <strong>W / A / S / D</strong> to fly, <strong>Space</strong> to ascend, <strong>Ctrl</strong> to descend</li>
                 <li>Press <strong>E</strong> to toggle altitude hold while flying</li>
-                <li>Use <code>/exodrone</code> to manage drones (Tier 3+) and the <strong>Cam</strong> button to view a selected drone's camera</li>
+                <li>Use <code>/exodrone</code> to manage drones (Tier 3+) and the <strong>Camera</strong> button to view a selected drone's camera</li>
                 <li>Use <code>/exorefill</code> to refill battery and fuel instantly (if permitted)</li>
             </ol>
         </section>
@@ -389,7 +389,7 @@
                     <tr><td><code>/exoitem5</code></td><td>scrapexo.item.tier5</td><td>Give yourself a Tier 5 activation item</td></tr>
                     <tr><td><code>/exorug</code></td><td>scrapexo.item.rug</td><td>Give yourself a Disco Rug activation item (Converts to Disco Floor on placement)</td></tr>
                     <tr><td><code>/exorefill</code></td><td>scrapexo.refill</td><td>Instantly refill active exosuit battery and fuel to maximum</td></tr>
-                    <tr><td><code>/exodrone</code></td><td>none (suit required, Tier 3+)</td><td>Opens the drone management panel. Available only to players wearing a Tier 3 or higher exosuit. From here you can command drones individually (D1/D2/D3...) or as a group (ALL), choose a base or waypoint target, deploy selected drones, recall one drone, recall all to hover, open drone storage, view a selected drone camera, spawn drones (requires elevated permission), or despawn all active drones. Waypoints appear on both the Enhanced HUD compass and inside the drone panel. <strong>Command lock:</strong> drone panel actions are blocked while the exosuit shutdown/deactivation sequence is active.</td></tr>
+                    <tr><td><code>/exodrone</code></td><td>none (suit required, Tier 3+)</td><td>Opens the drone management panel. Available only to players wearing a Tier 3 or higher exosuit. From here you can command drones individually (D1/D2/D3...) or as a group (ALL), choose a base or waypoint target, deploy selected drones, recall one drone, recall all to hover, open drone storage, view a selected drone camera, spawn drones, or despawn all active drones. Spawning consumes a drone item unless the player has <code>scrapexo.bypass.drone</code>. Waypoints appear on both the Enhanced HUD compass and inside the drone panel. <strong>Command lock:</strong> drone panel actions are blocked while the exosuit shutdown/deactivation sequence is active.</td></tr>
                     <tr><td><code>/wpmark [name]</code></td><td>none (suit + HUD)</td><td>Mark your aim target as a named waypoint. Waypoints appear directly on the Enhanced HUD compass and update in real time as you move. Waypoints are saved permanently and persist across suit deactivations, disconnects, and server restarts. They are only removed by <code>/wpdel</code> or <code>/wpclear</code>.</td></tr>
                     <tr><td><code>/wplist</code></td><td>none (suit + HUD)</td><td>List all saved waypoints</td></tr>
                     <tr><td><code>/wpdel [name]</code></td><td>none (suit + HUD)</td><td>Delete a specific waypoint by name</td></tr>
@@ -415,16 +415,13 @@
                     <tr><td><code>exodrone.recall</code></td><td>Recall a specific drone to the operator. Requires a D# to be selected first</td></tr>
                     <tr><td><code>exodrone.hover</code></td><td>Recall all drones back to orbit around the operator (clears any base/waypoint assignment)</td></tr>
                     <tr><td><code>exodrone.inventory</code></td><td>Open drone cargo inventory for looting</td></tr>
-                    <tr><td><code>exodrone.camera</code></td><td>Connect to the currently selected D# drone camera. Selecting another D# and pressing Cam switches directly to that drone. Pressing Cam again on the same selected drone disconnects the current camera session</td></tr>
+                    <tr><td><code>exodrone.camera</code></td><td>Connect to the currently selected D# drone camera. Selecting another D# and pressing Camera switches directly to that drone. Pressing Camera again on the same selected drone disconnects the current camera session</td></tr>
                     <tr><td><code>exodrone.cameraexit</code></td><td>Disconnect from the active drone camera view using the custom camera Exit button</td></tr>
                     <tr><td><code>exodrone.selectbase</code></td><td>Select/deselect a base location (args: x y z)</td></tr>
                     <tr><td><code>exodrone.selectwaypoint [index]</code></td><td>Select/deselect a saved waypoint as a target. Clears base selection</td></tr>
                     <tr><td><code>exodrone.despawn</code></td><td>Despawn all active drones</td></tr>
-                    <tr><td><code>exodrone.spawndrone</code></td><td>Spawn a drone directly from the drone management panel (requires scrapexo.spawndrone permission)</td></tr>
+                    <tr><td><code>exodrone.spawndrone</code></td><td>Spawn a drone directly from the drone management panel. Consumes a drone item unless the player has <code>scrapexo.bypass.drone</code></td></tr>
                     <tr><td><code>exo.altitudehold</code></td><td>Toggle exothrust altitude hold</td></tr>
-                    <tr><td><code>scrapexo.radarmove [args]</code></td><td>Reposition radar panel (left/right/up/down/default/close)</td></tr>
-                    <tr><td><code>scrapexo.consolemove [args]</code></td><td>Reposition console panel (left/right/up/down/default/close)</td></tr>
-                    <tr><td><code>scrapexo.barsmove [args]</code></td><td>Reposition status bars panel (left/right/up/down/default/close)</td></tr>
                 </tbody>
             </table>
 
@@ -438,8 +435,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr><td><code>exo.debug [player]</code></td><td>scrapexo.admin</td><td>Print exosuit debug state for self or named player</td></tr>
-                    <tr><td><code>scrapexo.refill</code></td><td>scrapexo.admin</td><td>Server-side refill command</td></tr>
+                    <tr><td><code>exo.debug [player]</code></td><td>server admin</td><td>Print exosuit debug state for self or named player</td></tr>
+                    <tr><td><code>scrapexo.refill</code></td><td>scrapexo.refill</td><td>Console refill command for players with refill permission</td></tr>
                 </tbody>
             </table>
         </section>
@@ -454,8 +451,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr><td><code>scrapexo.tier1-5</code></td><td>Allows use of /exo1-5 to activate specific Tiers</td></tr>
-                    <tr><td><code>scrapexo.item.tier1-5</code></td><td>Allows /exoitem1-5 to receive activation items</td></tr>
+                    <tr><td><code>scrapexo.tier1</code></td><td>Allows use of /exo1 to activate Tier 1</td></tr>
+                    <tr><td><code>scrapexo.tier2</code></td><td>Allows use of /exo2 to activate Tier 2</td></tr>
+                    <tr><td><code>scrapexo.tier3</code></td><td>Allows use of /exo3 to activate Tier 3</td></tr>
+                    <tr><td><code>scrapexo.tier4</code></td><td>Allows use of /exo4 to activate Tier 4</td></tr>
+                    <tr><td><code>scrapexo.tier5</code></td><td>Allows use of /exo5 to activate Tier 5</td></tr>
+                    <tr><td><code>scrapexo.item.tier1</code></td><td>Allows /exoitem1 to receive the Tier 1 activation item</td></tr>
+                    <tr><td><code>scrapexo.item.tier2</code></td><td>Allows /exoitem2 to receive the Tier 2 activation item</td></tr>
+                    <tr><td><code>scrapexo.item.tier3</code></td><td>Allows /exoitem3 to receive the Tier 3 activation item</td></tr>
+                    <tr><td><code>scrapexo.item.tier4</code></td><td>Allows /exoitem4 to receive the Tier 4 activation item</td></tr>
+                    <tr><td><code>scrapexo.item.tier5</code></td><td>Allows /exoitem5 to receive the Tier 5 activation item</td></tr>
+                    <tr><td><code>scrapexo.item.rug</code></td><td>Allows /exorug to receive the Disco Rug activation item</td></tr>
                     <tr><td><code>scrapexo.refill</code></td><td>Allows /exorefill instant refill</td></tr>
                     <tr><td><code>scrapexo.bypass.cost</code></td><td>Skip scrap cost on suit activation</td></tr>
                     <tr><td><code>scrapexo.bypass.cooldown</code></td><td>Skip activation cooldown</td></tr>
@@ -463,7 +469,6 @@
                     <tr><td><code>scrapexo.bypass.fuel</code></td><td>Unlimited exothrust fuel</td></tr>
                     <tr><td><code>scrapexo.bypass.drone</code></td><td>Allows the Spawn button in the drone panel to work freely — no drone item required from inventory</td></tr>
                     <tr><td><code>scrapexo.moveui</code></td><td>Allows UI repositioning commands</td></tr>
-                    <tr><td><code>scrapexo.admin</code></td><td>Access to exo.debug and server-side refill</td></tr>
                 </tbody>
             </table>
         </section>
@@ -617,14 +622,14 @@
             <h3>7.2 Drone Management Panel</h3>
             <p>Opened with <code>/exodrone</code>. Requires Tier 3+ exosuit. The panel has two columns: your authorized bases on the left and your saved waypoints on the right. During suit shutdown/deactivation, drone commands are locked until shutdown completes.</p>
             <h4>Drone Selector</h4>
-            <p>A row of buttons appears at the top of the panel showing each active drone (D1, D2, D3...) plus an ALL button. Click a D# to target that specific drone for your next action. Click ALL to apply actions to every drone at once. Selecting a drone that is unavailable or destroyed shows a warning and keeps the current selection unchanged. Active drones tint their D# button by battery state: green at 70% or higher, yellow at 50% or higher, orange at 30% or higher, and red below 30%. A chat confirmation (<code>[DRONE] Selected: D1</code>) is sent each time you make a selection so you can verify what the system registered. Action buttons (Deploy, Recall, Recall All, Cam) have a short cooldown to prevent accidental double-firing from rapid clicks.</p>
+            <p>A row of buttons appears at the top of the panel showing each active drone (D1, D2, D3...) plus an ALL button. Click a D# to target that specific drone for your next action. Click ALL to apply actions to every drone at once. Selecting a drone that is unavailable or destroyed shows a warning and keeps the current selection unchanged. Active drones tint their D# button by battery state: green at 70% or higher, yellow at 50% or higher, orange at 30% or higher, and red below 30%. A chat confirmation (<code>[DRONE] Selected: D1</code>) is sent each time you make a selection so you can verify what the system registered. Action buttons (Deploy, Recall, Recall All, Camera) have a short cooldown to prevent accidental double-firing from rapid clicks.</p>
             <h4>Actions</h4>
             <ul>
                 <li><strong>Deploy to Target:</strong> Sends the selected drone(s) to whichever base or waypoint is highlighted yellow. Drones actively charging on their pad are protected and cannot be redirected — drones still in transit can be overridden immediately.</li>
                 <li><strong>Recall:</strong> Brings a specific selected drone (D1, D2...) back to you. Requires a D# to be selected — not available when ALL is active.</li>
                 <li><strong>Recall All:</strong> Brings every drone back to orbit around you and clears all base/waypoint assignments.</li>
-                <li><strong>Storage:</strong> Opens the first available drone's cargo inventory.</li>
-                <li><strong>Cam:</strong> Connects your view to the selected D# drone's camera. A specific drone must be selected first; ALL cannot be used for camera viewing. Pressing Cam again while viewing the same selected drone disconnects the camera. Selecting another D# and pressing Cam exits the current camera session first, then connects to the new drone after the temporary computer station cleanup completes. Charging drones cannot be viewed until they are airborne again.</li>
+                <li><strong>Storage:</strong> Opens the first available drone's cargo inventory. The selected drone lands beside the operator and stays grounded while the cargo panel is open, then resumes flight after the panel closes.</li>
+                <li><strong>Camera:</strong> Connects your view to the selected D# drone's camera. A specific drone must be selected first; ALL cannot be used for camera viewing. Pressing Camera again while viewing the same selected drone disconnects the camera. Selecting another D# and pressing Camera exits the current camera session first, then connects to the new drone after the temporary computer station cleanup completes. Charging drones cannot be viewed until they are airborne again.</li>
                 <li><strong>Spawn:</strong> Spawns a new drone. Without <code>scrapexo.bypass.drone</code>, a drone item is consumed from your inventory. With the bypass permission, drones are free to spawn. Shows a warning if no item is available or permission is missing. Alternatively, dropping a drone item from your inventory while the suit is active will also spawn it directly. If the chassis has a depleted battery, you must be standing within 3m of a powered charging station — the drone will spawn directly onto the pad and begin charging at the normal rate, activating automatically once full. <strong>Safety lock:</strong> spawn from panel and drop-to-activate are both blocked while suit shutdown/deactivation is active.</li>
                 <li><strong>Despawn:</strong> Recalls all active drones. Each drone flies back to your position, lands nearby, then returns its chassis to your inventory. Players with <code>scrapexo.bypass.drone</code> have their drones simply deactivate on landing — no item is returned since none was spent.</li>
             </ul>
@@ -641,15 +646,16 @@
             <p>If more than one valid pad is available, drones prefer pads that the owner is not currently standing on. A player-occupied pad is used only as a fallback when no better powered/authed pad has an available drone slot.</p>
             <p>Low-battery drones cancel current travel tasks (base/waypoint/chase) and divert to charging. If no charging station is available, the drone returns to the operator for retrieval.</p>
             <p>If a drone reaches 0 battery before retrieval, it <strong>crashes in-world</strong> (no instant inventory teleport). The suit console reports the grid and relative direction from the operator at signal loss.</p>
+            <p>Drone cargo is protected during failures. If a drone crashes, is destroyed, is cleaned up during plugin reload/unload, or is found as an orphan during startup cleanup, any items inside its storage are moved into a wooden loot box at the drone's last location before the drone storage entity is removed.</p>
             <p>Lost-drone tracking above the armor bar is intentionally disabled; operators rely on the console warning/grid callout for recovery.</p>
             <p><strong>Battery state is remembered.</strong> When a drone is retrieved its remaining battery level is stored on the chassis item. A drone returned with a depleted battery can only be reactivated by standing within 3m of a powered charging station and using Spawn or dropping the item — the chassis will be placed directly on the pad and charge at the normal rate before automatically taking off.</p>
             <p><strong>Depleted spawn behavior:</strong> If a spawned chassis has too little battery to fly and the player is standing on a powered charging station, the drone stays on the charging pad instead of taking off and immediately landing again. The station check uses the pad footprint instead of a broad nearby radius so adjacent pads are less likely to trigger accidentally.</p>
             <p><strong>Important:</strong> DiscoFloor charging pads require an active power source to function. Charging drones and the exosuit both draw from connected batteries — make sure your base power supply is sufficient to support both.</p>
             <h3>7.4 Drone Camera View</h3>
-            <p>The drone panel includes a <strong>Cam</strong> button for viewing through a selected drone. Select a specific D# first, then click Cam. The plugin creates a temporary hidden computer-station controller behind the scenes, links it to the drone, and mounts the player into the camera feed.</p>
+            <p>The drone panel includes a <strong>Camera</strong> button for viewing through a selected drone. Select a specific D# first, then click Camera. The plugin creates a temporary hidden computer-station controller behind the scenes, links it to the drone, and mounts the player into the camera feed.</p>
             <ul>
                 <li><strong>Connection:</strong> Requires an active, available D# drone. Destroyed, unavailable, charging, or ALL selections are rejected with chat feedback.</li>
-                <li><strong>Switching:</strong> While viewing one drone, select a different D# and press Cam to disconnect the old feed, clean up the temporary station, and then connect to the new one. Pressing Cam on the same selected drone toggles the camera off.</li>
+                <li><strong>Switching:</strong> While viewing one drone, select a different D# and press Camera to disconnect the old feed, clean up the temporary station, and then connect to the new one. Pressing Camera on the same selected drone toggles the camera off.</li>
                 <li><strong>Exit:</strong> Use the camera Exit button to disconnect from the drone view. The plugin also removes the temporary station and restores the normal HUD layout when the camera session ends.</li>
                 <li><strong>Manual look:</strong> While the drone is hovering and not in combat, mouse movement rotates the drone camera/drone facing direction. When the drone engages a target, combat AI takes rotation control. When combat ends, manual camera rotation is available again.</li>
                 <li><strong>Camera HUD:</strong> Radar, custom bars, telemetry, and Enhanced HUD are rebuilt into camera-safe positions while viewing a drone, then restored to the normal layout after disconnect.</li>
@@ -767,9 +773,9 @@
                 <li><input type="checkbox"> Drone chooses a powered/authed pad not occupied by the owner when another pad with a drone slot is available</li>
                 <li><input type="checkbox"> Drone retrieved with partial battery — respawns at that battery level (not full)</li>
                 <li><input type="checkbox"> Drone assigned to a waypoint returns to that waypoint after charging instead of defaulting back to player hover</li>
-                <li><input type="checkbox"> Cam button requires a specific D# selection and rejects ALL selection</li>
-                <li><input type="checkbox"> Cam button connects to selected drone camera, and pressing Cam again on the same D# disconnects</li>
-                <li><input type="checkbox"> Selecting another D# while in camera view and pressing Cam exits the old station first, then swaps to the new drone camera</li>
+                <li><input type="checkbox"> Camera button requires a specific D# selection and rejects ALL selection</li>
+                <li><input type="checkbox"> Camera button connects to selected drone camera, and pressing Camera again on the same D# disconnects</li>
+                <li><input type="checkbox"> Selecting another D# while in camera view and pressing Camera exits the old station first, then swaps to the new drone camera</li>
                 <li><input type="checkbox"> Camera Exit button disconnects view, removes temporary station, and restores normal HUD layout</li>
                 <li><input type="checkbox"> Mouse movement rotates the drone while hovering in camera view, but combat AI takes rotation control during target engagement</li>
                 <li><input type="checkbox"> Multiple players using suits simultaneously — no interference</li>
