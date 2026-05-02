@@ -676,6 +676,7 @@
                         <li>Forcefield adds per-second drain.</li>
                         <li><strong>0 Battery:</strong> Speed boost removed — player moves slowly as if wearing heavy unpowered armor. Flight shuts down.</li>
                         <li><strong>Refill:</strong> DiscoFloor, dropping small battery items, <code>/exorefill</code>.</li>
+                        <li><strong>Shutdown return:</strong> The suit always returns one rechargeable battery from the suit charge, capped at 400 units. Extra charge above 400 is discharged only into rechargeable batteries already in the player's inventory; the plugin does not create extra batteries for overflow charge.</li>
                     </ul>
                 </div>
                 <div>
@@ -757,6 +758,7 @@
                 <li><input type="checkbox"> E toggles altitude hold only during active flight</li>
                 <li><input type="checkbox"> Battery depleted — player moves slowly like unpowered heavy armor, no speed boost</li>
                 <li><input type="checkbox"> Battery drain stops when all systems are inactive</li>
+                <li><input type="checkbox"> Suit shutdown returns one battery and discharges overflow charge only into existing inventory batteries</li>
                 <li><input type="checkbox"> Fuel drains during fire weapon usage</li>
                 <li><input type="checkbox"> Drone spawns and enters hover/orbit</li>
                 <li><input type="checkbox"> Drone battery drains only while airborne (not while grounded/charging)</li>
