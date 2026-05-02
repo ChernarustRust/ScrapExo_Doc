@@ -302,6 +302,7 @@
         <a href="#drones">Drones</a>
         <a href="#resources">Resources</a>
         <a href="#ui-hud">HUD / UI</a>
+        <a href="#skinned-items">Skins</a>
         <a href="#checklist">QA Checklist</a>
         <a href="#technical">Technical</a>
         <a href="#config-notes">Config</a>
@@ -385,6 +386,7 @@
                     <tr><td><code>/exoitem3</code></td><td>scrapexo.item.tier3</td><td>Give yourself a Tier 3 activation item</td></tr>
                     <tr><td><code>/exoitem4</code></td><td>scrapexo.item.tier4</td><td>Give yourself a Tier 4 activation item</td></tr>
                     <tr><td><code>/exoitem5</code></td><td>scrapexo.item.tier5</td><td>Give yourself a Tier 5 activation item</td></tr>
+                    <tr><td><code>/exorug</code></td><td>scrapexo.item.rug</td><td>Give yourself a Disco Rug activation item (Converts to Disco Floor on placement)</td></tr>
                     <tr><td><code>/exorefill</code></td><td>scrapexo.refill</td><td>Instantly refill active exosuit battery and fuel to maximum</td></tr>
                     <tr><td><code>/exodrone</code></td><td>none (suit required, Tier 3+)</td><td>Opens the drone management panel. Available only to players wearing a Tier 3 or higher exosuit. From here you can command drones individually (D1/D2/D3...) or as a group (ALL), choose a base or waypoint target, deploy selected drones, recall one drone, recall all to hover, open drone storage, spawn drones (requires elevated permission), or despawn all active drones. Waypoints appear on both the Enhanced HUD compass and inside the drone panel. <strong>Command lock:</strong> drone panel actions are blocked while the exosuit shutdown/deactivation sequence is active.</td></tr>
                     <tr><td><code>/wpmark [name]</code></td><td>none (suit + HUD)</td><td>Mark your aim target as a named waypoint. Waypoints appear directly on the Enhanced HUD compass and update in real time as you move. Waypoints are saved permanently and persist across suit deactivations, disconnects, and server restarts. They are only removed by <code>/wpdel</code> or <code>/wpclear</code>.</td></tr>
@@ -656,6 +658,7 @@
             </div>
             <h3>8.3 Charging Station (DiscoFloor)</h3>
             <p>Standing on a DiscoFloor recharges your suit battery. Higher tiers charge faster. You need to be standing directly on the floor to get the charge — hovering just above it won't count.</p>
+            <p><strong>Deployment:</strong> Players can deploy their own charging stations by placing a <strong>Disco Rug</strong> (Skin <code>10006</code>). Upon placement, the rug is automatically converted into a functional DiscoFloor entity. These can be distributed via <strong>Kits</strong> or other item spawning plugins.</p>
         </section>
 
         <section id="ui-hud">
@@ -670,6 +673,33 @@
                 <li><strong>[AGL]:</strong> Height via raycast (Color-coded: Red &lt; 10ft, Yellow &lt; 30ft).</li>
                 <li><strong>[SPD]:</strong> Speed (Color-coded: Cyan &gt; 3m/s, Orange &gt; 10m/s).</li>
             </ul>
+        </section>
+
+        <section id="skinned-items">
+            <h2>Section 10 — Skinned Items (IDs)</h2>
+            <p>The following custom skins are used by the plugin to identify special items. Server owners can use these IDs with plugins like <strong>Kits</strong> or <strong>Give</strong> to distribute items to players.</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Shortname</th>
+                        <th>Skin ID</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Exo Tier 1 Activation</td><td><code>metal.shield</code></td><td><code>10001</code></td><td>Activate Tier 1 Exosuit when placed in backpack</td></tr>
+                    <tr><td>Exo Tier 2 Activation</td><td><code>metal.shield</code></td><td><code>10002</code></td><td>Activate Tier 2 Exosuit when placed in backpack</td></tr>
+                    <tr><td>Exo Tier 3 Activation</td><td><code>metal.shield</code></td><td><code>10003</code></td><td>Activate Tier 3 Exosuit when placed in backpack</td></tr>
+                    <tr><td>Exo Tier 4 Activation</td><td><code>metal.shield</code></td><td><code>10004</code></td><td>Activate Tier 4 Exosuit when placed in backpack</td></tr>
+                    <tr><td>Exo Tier 5 Activation</td><td><code>metal.shield</code></td><td><code>10005</code></td><td>Activate Tier 5 Exosuit when placed in backpack</td></tr>
+                    <tr><td>Disco Rug</td><td><code>rug</code></td><td><code>10006</code></td><td>Automatically converts to a <strong>Disco Floor</strong> charging pad upon placement</td></tr>
+                    <tr><td>Fire Longsword</td><td><code>longsword</code></td><td><code>796733487</code></td><td>Exosuit fire weapon</td></tr>
+                    <tr><td>Forcefield Item</td><td><code>grenade.smoke</code></td><td><code>2812345678</code></td><td>Exosuit forcefield deployment tool</td></tr>
+                    <tr><td>Charged Battery</td><td><code>battery.small</code></td><td><code>33221144</code></td><td>Pre-charged battery for exosuit refilling</td></tr>
+                </tbody>
+            </table>
+            <p><strong>Note:</strong> You can use plugins like <strong>Kits</strong> to assign these skinned items to starter kits or rewards, allowing players to deploy their own Disco Floor charging stations by placing the Disco Rug.</p>
         </section>
 
         <section id="checklist">
