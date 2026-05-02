@@ -561,12 +561,11 @@
             <p>A forcefield item is placed in your belt. When activated, it projects a visible protective sphere around you that absorbs incoming damage. The sphere flashes red whenever it takes a hit. While the forcefield is held in your hand, shooting is disabled. Drains battery for the duration it's active.</p>
 
             <h3>5.9 Shoulder Launcher System</h3>
-            <p>The shoulder launcher is an Exothrust-only flight feature. It is not spawned during normal suit activation. When Exothrust is enabled, the launcher visual is attached directly to the exothrust mount/jetpack entity so it moves with the rigidbody-backed flight system instead of following behind the player. While attached, it rotates locally toward the player's aim/crosshair using full pitch and limited yaw without moving its mounted position. When Exothrust is disabled, the launcher is removed with the flight mount.</p>
+            <p>The shoulder launcher is an Exothrust-only flight weapon feature. It no longer spawns a visible shoulder launcher prefab or fallback rocket launcher visual. The system keeps the rocket firing behavior, launch effect, reload effect, battery drain, cooldown, and target checks without attaching a cosmetic launcher model to the player or exothrust mount.</p>
             <ul>
-                <li><strong>Activation:</strong> Spawns only while Exothrust is active.</li>
-                <li><strong>Attachment:</strong> Parent-mounted to the Exothrust entity, using the same child-entity attachment approach as the jetpack visuals.</li>
-                <li><strong>Aiming:</strong> Updates pitch from the player's view direction and allows a small clamped yaw range so it can track aim without large side-to-side swing or position rubberbanding.</li>
-                <li><strong>Firing:</strong> Shoulder launcher autofire only runs while Exothrust is active and a valid shoulder launcher entity exists.</li>
+                <li><strong>Activation:</strong> Autofire is available only while Exothrust is active.</li>
+                <li><strong>Visuals:</strong> No launcher prefab is spawned; only the rocket/effects are used.</li>
+                <li><strong>Firing:</strong> Shoulder launcher autofire uses the active aim-assist lock, battery drain, and fire interval. Valid lock targets include normal aim-assist targets plus major vehicle bosses such as Bradley APC and patrol helicopter.</li>
             </ul>
         </section>
 
@@ -618,14 +617,14 @@
             <h3>7.2 Drone Management Panel</h3>
             <p>Opened with <code>/exodrone</code>. Requires Tier 3+ exosuit. The panel has two columns: your authorized bases on the left and your saved waypoints on the right. During suit shutdown/deactivation, drone commands are locked until shutdown completes.</p>
             <h4>Drone Selector</h4>
-            <p>A row of buttons appears at the top of the panel showing each active drone (D1, D2, D3...) plus an ALL button. Click a D# to target that specific drone for your next action. Click ALL to apply actions to every drone at once. Selecting a drone that is unavailable or destroyed shows a warning and keeps the current selection unchanged. A chat confirmation (<code>[DRONE] Selected: D1</code>) is sent each time you make a selection so you can verify what the system registered. Action buttons (Deploy, Recall, Recall All, Cam) have a short cooldown to prevent accidental double-firing from rapid clicks.</p>
+            <p>A row of buttons appears at the top of the panel showing each active drone (D1, D2, D3...) plus an ALL button. Click a D# to target that specific drone for your next action. Click ALL to apply actions to every drone at once. Selecting a drone that is unavailable or destroyed shows a warning and keeps the current selection unchanged. Charging drones tint their D# button by battery state: green at 70% or higher, yellow at 50% or higher, orange at 30% or higher, and red below 30%. A chat confirmation (<code>[DRONE] Selected: D1</code>) is sent each time you make a selection so you can verify what the system registered. Action buttons (Deploy, Recall, Recall All, Cam) have a short cooldown to prevent accidental double-firing from rapid clicks.</p>
             <h4>Actions</h4>
             <ul>
                 <li><strong>Deploy to Target:</strong> Sends the selected drone(s) to whichever base or waypoint is highlighted yellow. Drones actively charging on their pad are protected and cannot be redirected — drones still in transit can be overridden immediately.</li>
                 <li><strong>Recall:</strong> Brings a specific selected drone (D1, D2...) back to you. Requires a D# to be selected — not available when ALL is active.</li>
                 <li><strong>Recall All:</strong> Brings every drone back to orbit around you and clears all base/waypoint assignments.</li>
                 <li><strong>Storage:</strong> Opens the first available drone's cargo inventory.</li>
-                <li><strong>Cam:</strong> Connects your view to the selected D# drone's camera. A specific drone must be selected first; ALL cannot be used for camera viewing. Pressing Cam again while viewing the same selected drone disconnects the camera. Selecting another D# and pressing Cam swaps directly from the current camera to the new drone. Charging drones cannot be viewed until they are airborne again.</li>
+                <li><strong>Cam:</strong> Connects your view to the selected D# drone's camera. A specific drone must be selected first; ALL cannot be used for camera viewing. Pressing Cam again while viewing the same selected drone disconnects the camera. Selecting another D# and pressing Cam exits the current camera session first, then connects to the new drone after the temporary computer station cleanup completes. Charging drones cannot be viewed until they are airborne again.</li>
                 <li><strong>Spawn:</strong> Spawns a new drone. Without <code>scrapexo.bypass.drone</code>, a drone item is consumed from your inventory. With the bypass permission, drones are free to spawn. Shows a warning if no item is available or permission is missing. Alternatively, dropping a drone item from your inventory while the suit is active will also spawn it directly. If the chassis has a depleted battery, you must be standing within 3m of a powered charging station — the drone will spawn directly onto the pad and begin charging at the normal rate, activating automatically once full. <strong>Safety lock:</strong> spawn from panel and drop-to-activate are both blocked while suit shutdown/deactivation is active.</li>
                 <li><strong>Despawn:</strong> Recalls all active drones. Each drone flies back to your position, lands nearby, then returns its chassis to your inventory. Players with <code>scrapexo.bypass.drone</code> have their drones simply deactivate on landing — no item is returned since none was spent.</li>
             </ul>
@@ -639,17 +638,18 @@
                 <li>After reaching full battery, it ascends back through the hatch and returns to the last active assignment, such as a waypoint or base hover position. If no assignment is stored, it returns to normal player hover.</li>
             </ol>
             <p>If multiple drones return at the same time, they queue their entry — each drone waits until the hatch and charging area are clear before proceeding to avoid collisions.</p>
+            <p>If more than one valid pad is available, drones prefer pads that the owner is not currently standing on. A player-occupied pad is used only as a fallback when no better powered/authed pad has an available drone slot.</p>
             <p>Low-battery drones cancel current travel tasks (base/waypoint/chase) and divert to charging. If no charging station is available, the drone returns to the operator for retrieval.</p>
             <p>If a drone reaches 0 battery before retrieval, it <strong>crashes in-world</strong> (no instant inventory teleport). The suit console reports the grid and relative direction from the operator at signal loss.</p>
             <p>Lost-drone tracking above the armor bar is intentionally disabled; operators rely on the console warning/grid callout for recovery.</p>
             <p><strong>Battery state is remembered.</strong> When a drone is retrieved its remaining battery level is stored on the chassis item. A drone returned with a depleted battery can only be reactivated by standing within 3m of a powered charging station and using Spawn or dropping the item — the chassis will be placed directly on the pad and charge at the normal rate before automatically taking off.</p>
-            <p><strong>Depleted spawn behavior:</strong> If a spawned chassis has too little battery to fly and the player is near a powered charging station, the drone stays on the charging pad instead of taking off and immediately landing again.</p>
+            <p><strong>Depleted spawn behavior:</strong> If a spawned chassis has too little battery to fly and the player is standing on a powered charging station, the drone stays on the charging pad instead of taking off and immediately landing again. The station check uses the pad footprint instead of a broad nearby radius so adjacent pads are less likely to trigger accidentally.</p>
             <p><strong>Important:</strong> DiscoFloor charging pads require an active power source to function. Charging drones and the exosuit both draw from connected batteries — make sure your base power supply is sufficient to support both.</p>
             <h3>7.4 Drone Camera View</h3>
             <p>The drone panel includes a <strong>Cam</strong> button for viewing through a selected drone. Select a specific D# first, then click Cam. The plugin creates a temporary hidden computer-station controller behind the scenes, links it to the drone, and mounts the player into the camera feed.</p>
             <ul>
                 <li><strong>Connection:</strong> Requires an active, available D# drone. Destroyed, unavailable, charging, or ALL selections are rejected with chat feedback.</li>
-                <li><strong>Switching:</strong> While viewing one drone, select a different D# and press Cam to disconnect the old feed and connect to the new one. Pressing Cam on the same selected drone toggles the camera off.</li>
+                <li><strong>Switching:</strong> While viewing one drone, select a different D# and press Cam to disconnect the old feed, clean up the temporary station, and then connect to the new one. Pressing Cam on the same selected drone toggles the camera off.</li>
                 <li><strong>Exit:</strong> Use the camera Exit button to disconnect from the drone view. The plugin also removes the temporary station and restores the normal HUD layout when the camera session ends.</li>
                 <li><strong>Manual look:</strong> While the drone is hovering and not in combat, mouse movement rotates the drone camera/drone facing direction. When the drone engages a target, combat AI takes rotation control. When combat ends, manual camera rotation is available again.</li>
                 <li><strong>Camera HUD:</strong> Radar, custom bars, telemetry, and Enhanced HUD are rebuilt into camera-safe positions while viewing a drone, then restored to the normal layout after disconnect.</li>
@@ -680,7 +680,8 @@
                 </div>
             </div>
             <h3>8.3 Charging Station (DiscoFloor)</h3>
-            <p>Standing on a DiscoFloor recharges your suit battery. Higher tiers charge faster. You need to be standing directly on the floor to get the charge — hovering just above it won't count.</p>
+            <p>Standing on a DiscoFloor recharges your suit battery. Higher tiers charge faster. You need to be standing directly on the floor footprint to get the charge — hovering just above it or standing beside it won't count. This tighter footprint check helps prevent adjacent pads from triggering when the player is not actually on that pad.</p>
+            <p>Charging pad color/state is refreshed for authorized players within 100m. This helps clients see the correct ready, cooldown, or charging color when returning to a base after the pad changed state while they were away.</p>
             <p><strong>Deployment:</strong> Players can deploy their own charging stations by placing a <strong>Disco Rug</strong> (Skin <code>10006</code>). Upon placement, the rug is automatically converted into a functional DiscoFloor entity. These can be distributed via <strong>Kits</strong> or other item spawning plugins.</p>
         </section>
 
@@ -690,6 +691,7 @@
             <p>Armor, Battery, and Fuel bars on left. Auto-shift upward to avoid overlapping vanilla status effects.</p>
             <h3>9.2 Enhanced HUD (Tiers 3–5)</h3>
             <p>Compass updated every 1s. Markers for Drones (Yellow), Charging Stations (Cyan), Threats (Red), Teammates (Green), Base, and Waypoints.</p>
+            <p>The radar also shows major vehicle boss targets such as Bradley APC and patrol helicopter as larger orange contacts so they stand out from normal hostile dots.</p>
             <h3>9.3 Telemetry Panel</h3>
             <ul>
                 <li><strong>[ALT]:</strong> Altitude (MSL).</li>
@@ -738,8 +740,9 @@
                 <li><input type="checkbox"> Fall damage reduction applies</li>
                 <li><input type="checkbox"> Ctrl + Space toggles exothrust reliably (no double trigger)</li>
                 <li><input type="checkbox"> Shoulder launcher does not appear during normal suit activation</li>
-                <li><input type="checkbox"> Shoulder launcher appears only after Exothrust is enabled and stays attached to the jetpack/exothrust mount while flying</li>
-                <li><input type="checkbox"> Shoulder launcher is removed when Exothrust is disabled</li>
+                <li><input type="checkbox"> Shoulder launcher prefab/fallback visual does not appear during Exothrust</li>
+                <li><input type="checkbox"> Shoulder launcher can lock/fire at Bradley APC and patrol helicopter targets</li>
+                <li><input type="checkbox"> Radar shows Bradley APC and patrol helicopter as larger orange contacts</li>
                 <li><input type="checkbox"> E toggles altitude hold only during active flight</li>
                 <li><input type="checkbox"> Battery depleted — player moves slowly like unpowered heavy armor, no speed boost</li>
                 <li><input type="checkbox"> Battery drain stops when all systems are inactive</li>
@@ -756,13 +759,17 @@
                 <li><input type="checkbox"> After full charge, drone ascends and returns to player</li>
                 <li><input type="checkbox"> Charging station beyond 350m — drone treated as no station found (returns to operator)</li>
                 <li><input type="checkbox"> Drone chassis retrieved with &lt;31 battery — blocked from spawning if no station within 3m (error shown)</li>
-                <li><input type="checkbox"> Drone chassis retrieved with &lt;31 battery — stand within 3m of powered station, Spawn places it on pad and it charges normally then auto-activates</li>
+                <li><input type="checkbox"> Drone chassis retrieved with &lt;31 battery — stand on powered station footprint, Spawn places it on pad and it charges normally then auto-activates</li>
                 <li><input type="checkbox"> Drone spawned with depleted battery near a powered station stays on the charging pad and does not take off until charged</li>
+                <li><input type="checkbox"> Charging drone D# selector buttons update red/orange/yellow/green by battery level</li>
+                <li><input type="checkbox"> Adjacent charging pads do not trigger unless the player is on that pad's footprint</li>
+                <li><input type="checkbox"> Charging pad ready/cooldown/charging colors update for authorized players returning within 100m</li>
+                <li><input type="checkbox"> Drone chooses a powered/authed pad not occupied by the owner when another pad with a drone slot is available</li>
                 <li><input type="checkbox"> Drone retrieved with partial battery — respawns at that battery level (not full)</li>
                 <li><input type="checkbox"> Drone assigned to a waypoint returns to that waypoint after charging instead of defaulting back to player hover</li>
                 <li><input type="checkbox"> Cam button requires a specific D# selection and rejects ALL selection</li>
                 <li><input type="checkbox"> Cam button connects to selected drone camera, and pressing Cam again on the same D# disconnects</li>
-                <li><input type="checkbox"> Selecting another D# while in camera view and pressing Cam swaps to the new drone camera</li>
+                <li><input type="checkbox"> Selecting another D# while in camera view and pressing Cam exits the old station first, then swaps to the new drone camera</li>
                 <li><input type="checkbox"> Camera Exit button disconnects view, removes temporary station, and restores normal HUD layout</li>
                 <li><input type="checkbox"> Mouse movement rotates the drone while hovering in camera view, but combat AI takes rotation control during target engagement</li>
                 <li><input type="checkbox"> Multiple players using suits simultaneously — no interference</li>
