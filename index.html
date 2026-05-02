@@ -744,7 +744,7 @@
                 </tbody>
             </table>
             <p><strong>Note:</strong> You can use plugins like <strong>Kits</strong> to assign these skinned items to starter kits or rewards, allowing players to deploy their own Disco Floor charging stations by placing the Disco Rug.</p>
-            <p><strong>Optional CopyPaste integration:</strong> The Exo Base Deployer runs the equivalent of <code>paste exobase a true s true</code> at the shelter placement position. ScrapExo authorizes the deploying player on pasted tool cupboards and limits each player to one active deployed Exo Base. If CopyPaste is missing, the shelter is refunded and the player is told: <code>CopyPaste is required to deploy Exo Bases.</code></p>
+            <p><strong>Optional CopyPaste integration:</strong> The Exo Base Deployer runs the equivalent of <code>paste exobase a true s true</code> at the shelter placement position. ScrapExo authorizes the deploying player on pasted tool cupboards and limits each player to one active deployed Exo Base. The one-base limit is checked before paste begins and also blocks pending deployments to prevent spam placing. If CopyPaste is missing, the paste file is missing/broken, the paste fails, or no entities spawn, the shelter is refunded and the player is notified. Missing CopyPaste uses this message: <code>CopyPaste is required to deploy Exo Bases.</code></p>
         </section>
 
         <section id="checklist">
@@ -776,6 +776,7 @@
                 <li><input type="checkbox"> Drone hatch docking sequence (ascend/descend through floor-frame hatch)</li>
                 <li><input type="checkbox"> FloorFrameDoors is loaded and horizontal floor-frame doors can be placed for drone hatch docking</li>
                 <li><input type="checkbox"> Exo Base Deployer requires CopyPaste and refunds the shelter if CopyPaste is missing</li>
+                <li><input type="checkbox"> Exo Base Deployer refunds the shelter if the <code>exobase</code> paste fails or spawns no entities</li>
                 <li><input type="checkbox"> Exo Base Deployer consumes the skinned shelter, pastes <code>exobase</code>, and authorizes the deploying player on pasted tool cupboards</li>
                 <li><input type="checkbox"> Exo Base Deployer blocks a second active Exo Base for the same player</li>
                 <li><input type="checkbox"> Multiple drones returning simultaneously — queue correctly, no collisions at hatch</li>
@@ -836,7 +837,7 @@
                 <li><strong>Combat & survivability:</strong> forcefield settings, fire weapon behavior, healing automation, shoulder launcher visuals, and fall-damage handling.</li>
                 <li><strong>HUD/UI:</strong> radar, console, and bar behavior/positions; visibility rules; update cadence and status presentation.</li>
                 <li><strong>Resource economy:</strong> item costs, refill behavior, charging rates, and conversion/consumption pacing.</li>
-                <li><strong>Base deployment:</strong> optional <code>ExoBaseDeployer</code> settings control the skinned Legacy Shelter deployer, CopyPaste paste file name, authorization behavior, stability option, and one-base-per-player limit.</li>
+                <li><strong>Base deployment:</strong> optional <code>ExoBaseDeployer</code> settings control the skinned Legacy Shelter deployer, CopyPaste paste file name, authorization behavior, stability option, one-base-per-player limit, and <code>CleanupDeployedBasesOnUnload</code>. Cleanup on unload defaults to <code>false</code>.</li>
                 <li><strong>Admin controls:</strong> permissions, bypass rules, diagnostics/debug toggles, and command access boundaries.</li>
             </ul>
             <h3>Experimental Features (Optional)</h3>
