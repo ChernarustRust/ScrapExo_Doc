@@ -234,6 +234,7 @@
             margin-right: 12px;
             width: 16px;
             height: 16px;
+            flex-shrink: 0;
             cursor: default;
         }
 
@@ -640,7 +641,7 @@
             <p>If multiple drones return at the same time, they queue their entry — each drone waits until the hatch and charging area are clear before proceeding to avoid collisions.</p>
             <p>Low-battery drones cancel current travel tasks (base/waypoint/chase) and divert to charging. If no charging station is available, the drone returns to the operator for retrieval.</p>
             <p>If a drone reaches 0 battery before retrieval, it <strong>crashes in-world</strong> (no instant inventory teleport). The suit console reports the grid and relative direction from the operator at signal loss.</p>
-                        <p>Lost-drone tracking above the armor bar is intentionally disabled; operators rely on the console warning/grid callout for recovery.</p>
+            <p>Lost-drone tracking above the armor bar is intentionally disabled; operators rely on the console warning/grid callout for recovery.</p>
             <p><strong>Battery state is remembered.</strong> When a drone is retrieved its remaining battery level is stored on the chassis item. A drone returned with a depleted battery can only be reactivated by standing within 3m of a powered charging station and using Spawn or dropping the item — the chassis will be placed directly on the pad and charge at the normal rate before automatically taking off.</p>
             <p><strong>Depleted spawn behavior:</strong> If a spawned chassis has too little battery to fly and the player is near a powered charging station, the drone stays on the charging pad instead of taking off and immediately landing again.</p>
             <p><strong>Important:</strong> DiscoFloor charging pads require an active power source to function. Charging drones and the exosuit both draw from connected batteries — make sure your base power supply is sufficient to support both.</p>
@@ -747,7 +748,7 @@
                 <li><input type="checkbox"> Drone battery drains only while airborne (not while grounded/charging)</li>
                 <li><input type="checkbox"> Drone below charge threshold — immediately cancels current task (base travel, waypoint, etc.) and diverts to nearest charging station within 350m</li>
                 <li><input type="checkbox"> Drone low battery with no station in range — flies back to operator, lands nearby, chassis returned to inventory</li>
-                <li><input type="checkbox"> Drone battery hits zero before reaching charger or player — shuts down immediately and falls from sky; console log shows grid reference and direction from operator</li>
+                <li class="check-item"><input type="checkbox"> <span>Drone battery hits zero before reaching charger or player — shuts down immediately and falls from sky; console log shows grid reference and direction from operator</span></li>
                 <li><input type="checkbox"> Drone actively returning to player (despawn/low battery) is NOT redirected to a charging station mid-flight</li>
                 <li><input type="checkbox"> Drone hatch docking sequence (ascend/descend through floor-frame hatch)</li>
                 <li><input type="checkbox"> Multiple drones returning simultaneously — queue correctly, no collisions at hatch</li>
