@@ -558,6 +558,15 @@
 
             <h3>5.8 Forcefield System</h3>
             <p>A forcefield item is placed in your belt. When activated, it projects a visible protective sphere around you that absorbs incoming damage. The sphere flashes red whenever it takes a hit. While the forcefield is held in your hand, shooting is disabled. Drains battery for the duration it's active.</p>
+
+            <h3>5.9 Shoulder Launcher System</h3>
+            <p>The shoulder launcher is an Exothrust-only flight feature. It is not spawned during normal suit activation. When Exothrust is enabled, the launcher visual is attached directly to the exothrust mount/jetpack entity so it moves with the rigidbody-backed flight system instead of following behind the player. While attached, it rotates locally toward the player's aim/crosshair using full pitch and limited yaw without moving its mounted position. When Exothrust is disabled, the launcher is removed with the flight mount.</p>
+            <ul>
+                <li><strong>Activation:</strong> Spawns only while Exothrust is active.</li>
+                <li><strong>Attachment:</strong> Parent-mounted to the Exothrust entity, using the same child-entity attachment approach as the jetpack visuals.</li>
+                <li><strong>Aiming:</strong> Updates pitch from the player's view direction and allows a small clamped yaw range so it can track aim without large side-to-side swing or position rubberbanding.</li>
+                <li><strong>Firing:</strong> Shoulder launcher autofire only runs while Exothrust is active and a valid shoulder launcher entity exists.</li>
+            </ul>
         </section>
 
         <section id="progression">
@@ -727,6 +736,9 @@
                 <li><input type="checkbox"> Armor absorbs damage before health</li>
                 <li><input type="checkbox"> Fall damage reduction applies</li>
                 <li><input type="checkbox"> Ctrl + Space toggles exothrust reliably (no double trigger)</li>
+                <li><input type="checkbox"> Shoulder launcher does not appear during normal suit activation</li>
+                <li><input type="checkbox"> Shoulder launcher appears only after Exothrust is enabled and stays attached to the jetpack/exothrust mount while flying</li>
+                <li><input type="checkbox"> Shoulder launcher is removed when Exothrust is disabled</li>
                 <li><input type="checkbox"> E toggles altitude hold only during active flight</li>
                 <li><input type="checkbox"> Battery depleted — player moves slowly like unpowered heavy armor, no speed boost</li>
                 <li><input type="checkbox"> Battery drain stops when all systems are inactive</li>
