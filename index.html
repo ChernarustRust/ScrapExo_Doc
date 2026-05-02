@@ -617,7 +617,7 @@
             <h3>7.2 Drone Management Panel</h3>
             <p>Opened with <code>/exodrone</code>. Requires Tier 3+ exosuit. The panel has two columns: your authorized bases on the left and your saved waypoints on the right. During suit shutdown/deactivation, drone commands are locked until shutdown completes.</p>
             <h4>Drone Selector</h4>
-            <p>A row of buttons appears at the top of the panel showing each active drone (D1, D2, D3...) plus an ALL button. Click a D# to target that specific drone for your next action. Click ALL to apply actions to every drone at once. Selecting a drone that is unavailable or destroyed shows a warning and keeps the current selection unchanged. Charging drones tint their D# button by battery state: green at 70% or higher, yellow at 50% or higher, orange at 30% or higher, and red below 30%. A chat confirmation (<code>[DRONE] Selected: D1</code>) is sent each time you make a selection so you can verify what the system registered. Action buttons (Deploy, Recall, Recall All, Cam) have a short cooldown to prevent accidental double-firing from rapid clicks.</p>
+            <p>A row of buttons appears at the top of the panel showing each active drone (D1, D2, D3...) plus an ALL button. Click a D# to target that specific drone for your next action. Click ALL to apply actions to every drone at once. Selecting a drone that is unavailable or destroyed shows a warning and keeps the current selection unchanged. Active drones tint their D# button by battery state: green at 70% or higher, yellow at 50% or higher, orange at 30% or higher, and red below 30%. A chat confirmation (<code>[DRONE] Selected: D1</code>) is sent each time you make a selection so you can verify what the system registered. Action buttons (Deploy, Recall, Recall All, Cam) have a short cooldown to prevent accidental double-firing from rapid clicks.</p>
             <h4>Actions</h4>
             <ul>
                 <li><strong>Deploy to Target:</strong> Sends the selected drone(s) to whichever base or waypoint is highlighted yellow. Drones actively charging on their pad are protected and cannot be redirected — drones still in transit can be overridden immediately.</li>
@@ -761,7 +761,7 @@
                 <li><input type="checkbox"> Drone chassis retrieved with &lt;31 battery — blocked from spawning if no station within 3m (error shown)</li>
                 <li><input type="checkbox"> Drone chassis retrieved with &lt;31 battery — stand on powered station footprint, Spawn places it on pad and it charges normally then auto-activates</li>
                 <li><input type="checkbox"> Drone spawned with depleted battery near a powered station stays on the charging pad and does not take off until charged</li>
-                <li><input type="checkbox"> Charging drone D# selector buttons update red/orange/yellow/green by battery level</li>
+                <li><input type="checkbox"> Active drone D# selector buttons update red/orange/yellow/green by battery level</li>
                 <li><input type="checkbox"> Adjacent charging pads do not trigger unless the player is on that pad's footprint</li>
                 <li><input type="checkbox"> Charging pad ready/cooldown/charging colors update for authorized players returning within 100m</li>
                 <li><input type="checkbox"> Drone chooses a powered/authed pad not occupied by the owner when another pad with a drone slot is available</li>
