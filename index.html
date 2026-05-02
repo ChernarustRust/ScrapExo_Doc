@@ -322,6 +322,8 @@
             <div><strong>Version:</strong> 1.0.0</div>
             <div><strong>Framework:</strong> Carbon/Oxide</div>
             <div><strong>Dependency:</strong> ImageLibrary</div>
+            <div><strong>Optional Integration:</strong> CopyPaste</div>
+            <div><strong>Included Companion:</strong> FloorFrameDoors</div>
         </div>
 
         <section id="overview">
@@ -336,6 +338,8 @@
                 <li>Includes a fire weapon (longsword variant) and a forcefield item as belt tools</li>
                 <li>Tier 5 Exothrust supports an optional shoulder launcher that can lock and fire at major vehicle bosses such as Bradley APC and patrol helicopter</li>
                 <li>Tiers 3-5 support autonomous combat/scouting drones with optional live camera viewing from the drone management panel</li>
+                <li>Includes support for <strong>FloorFrameDoors</strong>, the companion plugin used to place horizontal doors in floor frames for drone docking hatches</li>
+                <li>Optional <strong>CopyPaste</strong> integration can deploy a prebuilt ScrapExo charging base from a skinned Legacy Shelter item</li>
                 <li>Enhanced HUD shows compass-style directional markers for threats, teammates, bases, charging stations, and waypoints, plus telemetry (ALT, AGL, SPD)</li>
                 <li>Suit state persists across disconnects and is restored on reconnect</li>
             </ul>
@@ -391,7 +395,7 @@
                     <tr><td><code>/exorug</code></td><td>scrapexo.item.rug</td><td>Give yourself a Disco Rug activation item (Converts to Disco Floor on placement)</td></tr>
                     <tr><td><code>/exorefill</code></td><td>scrapexo.refill</td><td>Instantly refill active exosuit battery and fuel to maximum</td></tr>
                     <tr><td><code>/exodrone</code></td><td>none (suit required, Tier 3+)</td><td>Opens the drone management panel. Available only to players wearing a Tier 3 or higher exosuit. From here you can command drones individually (D1/D2/D3...) or as a group (ALL), choose a base or waypoint target, deploy selected drones, recall one drone, recall all to hover, open drone storage, view a selected drone camera, spawn drones, or despawn all active drones. Spawning consumes a drone item unless the player has <code>scrapexo.bypass.drone</code>. Waypoints appear on both the Enhanced HUD compass and inside the drone panel. <strong>Command lock:</strong> drone panel actions are blocked while the exosuit shutdown/deactivation sequence is active.</td></tr>
-                    <tr><td><code>/wpmark [name]</code></td><td>none (suit + HUD)</td><td>Mark your aim target as a named waypoint. Waypoints appear directly on the Enhanced HUD compass and update in real time as you move. Waypoints are saved permanently and persist across suit deactivations, disconnects, and server restarts. They are only removed by <code>/wpdel</code> or <code>/wpclear</code>.</td></tr>
+                    <tr><td><code>/wpmark [name]</code></td><td>none (suit + HUD)</td><td>Mark your aim target as a named waypoint. Waypoint marking ignores transparent base-window style prefabs whose names contain window, embrasure, or shutter, allowing marks through those openings. Waypoints appear directly on the Enhanced HUD compass and update in real time as you move. Waypoints are saved permanently and persist across suit deactivations, disconnects, and server restarts. They are only removed by <code>/wpdel</code> or <code>/wpclear</code>.</td></tr>
                     <tr><td><code>/wplist</code></td><td>none (suit + HUD)</td><td>List all saved waypoints</td></tr>
                     <tr><td><code>/wpdel [name]</code></td><td>none (suit + HUD)</td><td>Delete a specific waypoint by name</td></tr>
                     <tr><td><code>/wpclear</code></td><td>none (suit + HUD)</td><td>Delete all waypoints</td></tr>
@@ -638,7 +642,7 @@
                 <li><strong>Despawn:</strong> Recalls all active drones. Each drone flies back to your position, lands nearby, then returns its chassis to your inventory. Players with <code>scrapexo.bypass.drone</code> have their drones simply deactivate on landing — no item is returned since none was spent.</li>
             </ul>
             <h4>Waypoints in the Panel</h4>
-            <p>Waypoints saved with <code>/wpmark</code> appear in the right column of the drone panel. Selecting one and clicking <strong>Deploy to Target</strong> sends the selected drone(s) there. Drones circle above the waypoint until recalled — they do not automatically return on their own unless battery depletes.</p>
+            <p>Waypoints saved with <code>/wpmark</code> appear in the right column of the drone panel. Selecting one and clicking <strong>Deploy to Target</strong> sends the selected drone(s) there. Drones circle above the waypoint until recalled — they do not automatically return on their own unless battery depletes. Waypoint marking ignores window, embrasure, and shutter prefabs so operators can mark terrain or targets through base viewing ports.</p>
             <h3>7.3 Charging Behavior (Hatch Docking)</h3>
             <ol>
                 <li>When a drone's battery is low (&lt;30), it diverts to a charging station if one is in range.</li>
@@ -646,6 +650,7 @@
                 <li>The drone descends through the hatch into the base interior, moves to an available DiscoFloor charging pad, positions itself correctly, and begins charging.</li>
                 <li>After reaching full battery, it ascends back through the hatch and returns to the last active assignment, such as a waypoint or base hover position. If no assignment is stored, it returns to normal player hover.</li>
             </ol>
+            <p><strong>FloorFrameDoors companion plugin:</strong> Drone hatch docking is designed around floor-frame doors created by the included <code>FloorFrameDoors.cs</code> plugin. FloorFrameDoors adds an invisible wall-frame proxy to floor frames so normal Rust doors and double doors can be placed horizontally as hatch doors. ScrapExo recognizes those horizontal doors and uses them as drone entry/exit points above charging rooms.</p>
             <p>If multiple drones return at the same time, they queue their entry — each drone waits until the hatch and charging area are clear before proceeding to avoid collisions.</p>
             <p>If more than one valid pad is available, drones prefer pads that the owner is not currently standing on. A player-occupied pad is used only as a fallback when no better powered/authed pad has an available drone slot.</p>
             <p>Low-battery drones cancel current travel tasks (base/waypoint/chase) and divert to charging. If no charging station is available, the drone returns to the operator for retrieval.</p>
@@ -735,9 +740,11 @@
                     <tr><td>Fire Longsword</td><td><code>longsword</code></td><td><code>10007</code></td><td>Exosuit fire weapon</td></tr>
                     <tr><td>Forcefield Item</td><td><code>grenade.smoke</code></td><td><code>10008</code></td><td>Exosuit forcefield deployment tool</td></tr>
                     <tr><td>Charged Battery</td><td><code>battery.small</code></td><td><code>10009</code></td><td>Pre-charged battery for exosuit refilling</td></tr>
+                    <tr><td>Exo Base Deployer</td><td><code>legacy.shelter</code></td><td><code>10010</code></td><td>A skinned Legacy Shelter item that deploys a prebuilt ScrapExo-compatible charging base using CopyPaste. Requires the CopyPaste plugin and an <code>exobase</code> paste file. When placed, the shelter is consumed and replaced with the configured base paste.</td></tr>
                 </tbody>
             </table>
             <p><strong>Note:</strong> You can use plugins like <strong>Kits</strong> to assign these skinned items to starter kits or rewards, allowing players to deploy their own Disco Floor charging stations by placing the Disco Rug.</p>
+            <p><strong>Optional CopyPaste integration:</strong> The Exo Base Deployer runs the equivalent of <code>paste exobase a true s true</code> at the shelter placement position. ScrapExo authorizes the deploying player on pasted tool cupboards and limits each player to one active deployed Exo Base. If CopyPaste is missing, the shelter is refunded and the player is told: <code>CopyPaste is required to deploy Exo Bases.</code></p>
         </section>
 
         <section id="checklist">
@@ -767,6 +774,10 @@
                 <li class="check-item"><input type="checkbox"> <span>Drone battery hits zero before reaching charger or player — shuts down immediately and falls from sky; console log shows grid reference and direction from operator</span></li>
                 <li><input type="checkbox"> Drone actively returning to player (despawn/low battery) is NOT redirected to a charging station mid-flight</li>
                 <li><input type="checkbox"> Drone hatch docking sequence (ascend/descend through floor-frame hatch)</li>
+                <li><input type="checkbox"> FloorFrameDoors is loaded and horizontal floor-frame doors can be placed for drone hatch docking</li>
+                <li><input type="checkbox"> Exo Base Deployer requires CopyPaste and refunds the shelter if CopyPaste is missing</li>
+                <li><input type="checkbox"> Exo Base Deployer consumes the skinned shelter, pastes <code>exobase</code>, and authorizes the deploying player on pasted tool cupboards</li>
+                <li><input type="checkbox"> Exo Base Deployer blocks a second active Exo Base for the same player</li>
                 <li><input type="checkbox"> Multiple drones returning simultaneously — queue correctly, no collisions at hatch</li>
                 <li><input type="checkbox"> DiscoFloor requires active power source — charging stops if power is removed</li>
                 <li><input type="checkbox"> After full charge, drone ascends and returns to player</li>
@@ -808,6 +819,12 @@
                 <li>Facepunch.Pool used for all entity lists.</li>
                 <li>Drone camera sessions are tracked per player and cleaned up on disconnect, death, suit deactivation, plugin unload, or drone removal.</li>
             </ul>
+            <h3>Companion Plugins</h3>
+            <ul>
+                <li><code>ImageLibrary</code>: Required for HUD/radar icons.</li>
+                <li><code>FloorFrameDoors</code>: Included companion plugin for placing horizontal doors in floor frames. Recommended for ScrapExo drone hatch docking and charging-room entry/exit behavior.</li>
+                <li><code>CopyPaste</code>: Optional integration used by the Exo Base Deployer. Requires a saved paste file named <code>exobase</code>.</li>
+            </ul>
         </section>
 
         <section id="config-notes">
@@ -819,6 +836,7 @@
                 <li><strong>Combat & survivability:</strong> forcefield settings, fire weapon behavior, healing automation, shoulder launcher visuals, and fall-damage handling.</li>
                 <li><strong>HUD/UI:</strong> radar, console, and bar behavior/positions; visibility rules; update cadence and status presentation.</li>
                 <li><strong>Resource economy:</strong> item costs, refill behavior, charging rates, and conversion/consumption pacing.</li>
+                <li><strong>Base deployment:</strong> optional <code>ExoBaseDeployer</code> settings control the skinned Legacy Shelter deployer, CopyPaste paste file name, authorization behavior, stability option, and one-base-per-player limit.</li>
                 <li><strong>Admin controls:</strong> permissions, bypass rules, diagnostics/debug toggles, and command access boundaries.</li>
             </ul>
             <h3>Experimental Features (Optional)</h3>
