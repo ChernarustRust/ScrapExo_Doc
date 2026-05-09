@@ -304,6 +304,7 @@
         <a href="#resources">Resources</a>
         <a href="#ui-hud">HUD / UI</a>
         <a href="#skinned-items">Skins</a>
+        <a href="#localization">Localization</a>
         <a href="#checklist">QA Checklist</a>
         <a href="#technical">Technical</a>
         <a href="#config-notes">Config</a>
@@ -747,6 +748,35 @@
             <p><strong>Optional CopyPaste integration:</strong> The Exo Base Deployer runs the equivalent of <code>paste exobase a true s true</code> at the shelter placement position. ScrapExo authorizes the deploying player on pasted tool cupboards and limits each player to one active deployed Exo Base. The one-base limit is checked before paste begins and also blocks pending deployments to prevent spam placing. If CopyPaste is missing, the paste file is missing/broken, the paste fails, or no entities spawn, the shelter is refunded and the player is notified. Missing CopyPaste uses this message: <code>CopyPaste is required to deploy Exo Bases.</code></p>
         </section>
 
+        <section id="localization">
+            <h2>Section 10.5 — Localization (Multi-Language Support)</h2>
+            <p>All player-facing chat and console (drone/suit) messages route through the standard Carbon/Oxide <code>lang</code> API. The English message file is auto-generated on first load.</p>
+            <h3>File Location</h3>
+            <ul>
+                <li><strong>English (default):</strong> <code>oxide/lang/en/ScrapExo.json</code> (or <code>carbon/lang/en/ScrapExo.json</code> on Carbon)</li>
+                <li>To add another language, copy the <code>en/ScrapExo.json</code> file to <code>lang/&lt;locale&gt;/ScrapExo.json</code> (e.g. <code>de</code>, <code>fr</code>, <code>es-ES</code>, <code>pt-BR</code>, <code>ru</code>) and translate the values. Keys must remain unchanged.</li>
+                <li>The plugin uses each player's selected language automatically. Missing keys fall back to English.</li>
+            </ul>
+            <h3>Key Categories</h3>
+            <ul>
+                <li><code>Cmd.*</code> — Chat command responses (help text, permission errors, waypoint feedback, refill, item grants).</li>
+                <li><code>Suit.*</code> — Exosuit activation, cooldown, lockout, fuel/battery transfer, forcefield, fire weapon, exothrust, resources updates.</li>
+                <li><code>Drone.*</code> — Drone power/charging, boot/shutdown diagnostics, medical scan, temperature, autonomous behavior (link recovery, ascent, mailbox, retrieval).</li>
+                <li><code>Drone.Ui.*</code> — Drone management panel button responses (deploy, recall, camera, spawn, despawn, base selection).</li>
+                <li><code>Deploy.*</code> — Exo Base Deployer messages.</li>
+                <li><code>Status.*</code> — Generic status words (READY, ONLINE, OFFLINE, STANDBY) used inside other localized boot/diagnostic messages.</li>
+            </ul>
+            <h3>Format Placeholders</h3>
+            <p>Some messages use numbered placeholders such as <code>{0}</code>, <code>{1:F0}</code>, <code>{2}</code>. These must be preserved in translations — they are filled with runtime values (counts, percentages, names, grid references). The localization helper is crash-safe: a malformed placeholder will fall back to the unformatted message rather than throw an exception.</p>
+            <h3>Out-of-Scope Strings</h3>
+            <p>The following are intentionally not localized:</p>
+            <ul>
+                <li><strong>CUI labels</strong> in the drone management panel and HUD overlays — kept in English to avoid layout breakage from variable string widths.</li>
+                <li><strong>Admin/debug output</strong> (e.g. <code>exo.debug</code> dump, debug-gated power-pad warnings) — server operator-facing only.</li>
+                <li><strong>Console (server) log lines</strong> via <code>Puts</code> / <code>PrintWarning</code> — operator-facing only.</li>
+            </ul>
+        </section>
+
         <section id="checklist">
             <h2>Section 11 — QA Testing Checklist</h2>
             <ul class="checklist">
@@ -800,6 +830,8 @@
                 <li><input type="checkbox"> Multiple players using suits simultaneously — no interference</li>
                 <li><input type="checkbox"> Telemetry (ALT/AGL/SPD) updates and colors correctly</li>
                 <li><input type="checkbox"> Suit state restores on reconnect</li>
+                <li><input type="checkbox"> Lang file <code>lang/en/ScrapExo.json</code> generated on first load and used for all player-facing chat/console messages</li>
+                <li><input type="checkbox"> Translated lang file in another locale (e.g. <code>lang/de/ScrapExo.json</code>) is picked up per-player based on client language</li>
             </ul>
         </section>
 
